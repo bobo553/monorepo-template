@@ -8,26 +8,26 @@ const writeJson = (path: string, value: unknown) => writeFile(path, `${JSON.stri
 
 const createFakeRepository = async () => {
     const repositoryRoot = await mkdtemp(join(tmpdir(), "monorepo-create-project-"));
-    const webTemplatePath = join(repositoryRoot, "apps", "webs", "web");
+    const h5TemplatePath = join(repositoryRoot, "apps", "webs", "h5");
     const adminTemplatePath = join(repositoryRoot, "apps", "webs", "admin");
     const apiTemplatePath = join(repositoryRoot, "apps", "servers", "api");
     const mobileTemplatePath = join(repositoryRoot, "apps", "mobiles", "mobile");
-    await mkdir(join(webTemplatePath, "src"), { recursive: true });
-    await mkdir(join(webTemplatePath, ".next"), { recursive: true });
+    await mkdir(join(h5TemplatePath, "src"), { recursive: true });
+    await mkdir(join(h5TemplatePath, ".next"), { recursive: true });
     await mkdir(join(adminTemplatePath, "src"), { recursive: true });
     await mkdir(join(apiTemplatePath, "src"), { recursive: true });
     await mkdir(join(mobileTemplatePath, "src"), { recursive: true });
     await writeFile(join(repositoryRoot, "pnpm-workspace.yaml"), "packages: []\n", "utf8");
-    await writeJson(join(webTemplatePath, "package.json"), {
-        name: "web",
+    await writeJson(join(h5TemplatePath, "package.json"), {
+        name: "h5",
         private: true,
         scripts: { dev: "next dev", start: "next start" },
     });
-    await writeFile(join(webTemplatePath, "src", "index.ts"), "export {};\n", "utf8");
-    await writeFile(join(webTemplatePath, ".env.production"), "SECRET=value\n", "utf8");
-    await writeFile(join(webTemplatePath, ".env.example"), "PUBLIC_VALUE=\n", "utf8");
-    await writeFile(join(webTemplatePath, ".env.development.example"), "DEV_VALUE=\n", "utf8");
-    await writeFile(join(webTemplatePath, ".next", "artifact"), "generated\n", "utf8");
+    await writeFile(join(h5TemplatePath, "src", "index.ts"), "export {};\n", "utf8");
+    await writeFile(join(h5TemplatePath, ".env.production"), "SECRET=value\n", "utf8");
+    await writeFile(join(h5TemplatePath, ".env.example"), "PUBLIC_VALUE=\n", "utf8");
+    await writeFile(join(h5TemplatePath, ".env.development.example"), "DEV_VALUE=\n", "utf8");
+    await writeFile(join(h5TemplatePath, ".next", "artifact"), "generated\n", "utf8");
     await writeJson(join(adminTemplatePath, "package.json"), {
         name: "admin",
         private: true,
@@ -88,31 +88,31 @@ describe("createProject", () => {
     });
 
     it("finds the repository root from a nested directory", async () => {
-        expect(await findRepositoryRoot(join(repositoryRoot, "apps", "webs", "web", "src"))).toBe(repositoryRoot);
+        expect(await findRepositoryRoot(join(repositoryRoot, "apps", "webs", "h5", "src"))).toBe(repositoryRoot);
     });
 
-    it("creates a Web workspace, selects a free port, and excludes unsafe files", async () => {
+    it("creates an H5 workspace, selects a free port, and excludes unsafe files", async () => {
         const result = await createProject({
             repositoryRoot,
-            template: "web",
-            name: "customer-portal",
+            template: "h5",
+            name: "campaign-share",
         });
 
         expect(result.created).toBe(true);
         expect(result.port).toBe(3001);
-        const targetPath = join(repositoryRoot, "apps", "webs", "customer-portal");
+        const targetPath = join(repositoryRoot, "apps", "webs", "campaign-share");
         const packageJson = JSON.parse(await readFile(join(targetPath, "package.json"), "utf8")) as {
             name: string;
             scripts: Record<string, string>;
         };
-        expect(packageJson.name).toBe("customer-portal");
+        expect(packageJson.name).toBe("campaign-share");
         expect(packageJson.scripts.dev).toBe("next dev --port 3001");
         expect(packageJson.scripts.start).toBe("next start --port 3001");
         await expect(readFile(join(targetPath, ".env.production"), "utf8")).rejects.toThrow();
         await expect(readFile(join(targetPath, ".next", "artifact"), "utf8")).rejects.toThrow();
         await expect(readFile(join(targetPath, ".env.example"), "utf8")).resolves.toContain("PUBLIC_VALUE");
         await expect(readFile(join(targetPath, ".env.development.example"), "utf8")).resolves.toContain("DEV_VALUE");
-        await expect(readFile(join(targetPath, "progress.md"), "utf8")).resolves.toContain("customer-portal");
+        await expect(readFile(join(targetPath, "progress.md"), "utf8")).resolves.toContain("campaign-share");
     });
 
     it("rewrites Admin scripts and Playwright URLs for an explicit port", async () => {
@@ -177,28 +177,28 @@ describe("createProject", () => {
     it("performs a dry run without creating the target", async () => {
         const result = await createProject({
             repositoryRoot,
-            template: "web",
-            name: "preview-web",
+            template: "h5",
+            name: "preview-h5",
             dryRun: true,
         });
 
         expect(result.created).toBe(false);
         await expect(
-            readFile(join(repositoryRoot, "apps", "webs", "preview-web", "package.json"), "utf8"),
+            readFile(join(repositoryRoot, "apps", "webs", "preview-h5", "package.json"), "utf8"),
         ).rejects.toThrow();
     });
 
     it("rejects an existing target and an occupied Web port", async () => {
         await mkdir(join(repositoryRoot, "apps", "webs", "existing"));
-        await expect(createProjectPlan({ repositoryRoot, template: "web", name: "existing" })).rejects.toThrow(
+        await expect(createProjectPlan({ repositoryRoot, template: "h5", name: "existing" })).rejects.toThrow(
             "目标目录已存在",
         );
-        await expect(
-            createProjectPlan({ repositoryRoot, template: "web", name: "new-web", port: 3000 }),
-        ).rejects.toThrow("端口已被");
+        await expect(createProjectPlan({ repositoryRoot, template: "h5", name: "new-h5", port: 3000 })).rejects.toThrow(
+            "端口已被",
+        );
     });
 
-    it("rejects a port for templates that do not expose a Web server", async () => {
+    it("rejects a port for templates that do not expose an H5/Admin server", async () => {
         await expect(
             createProjectPlan({ repositoryRoot, template: "mobile", name: "new-mobile", port: 3010 }),
         ).rejects.toThrow("不支持 --port");

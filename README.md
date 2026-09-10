@@ -6,11 +6,11 @@
 
 ### Apps
 
-- **`apps/webs/web`**: Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Vitest + Playwright
+- **`apps/webs/h5`**: Consumer-facing mobile-first H5 with Next.js 16, React 19, Tailwind CSS v4, Vitest, and Playwright
 - **`apps/webs/admin`**: B2B admin dashboard with responsive navigation, ECharts, dark mode, Vitest, and Playwright
 - **`apps/mobiles/mobile`**: Expo + React Native + TypeScript + NativeWind + Vitest
 - **`apps/servers/api`**: NestJS 11 + TypeScript + TypeORM + PostgreSQL + Zod + Vitest + Supertest
-- **`apps/tools/create-project`**: Interactive CLI for creating workspaces from the Web, Admin, API, and Mobile templates
+- **`apps/tools/create-project`**: Interactive CLI for creating workspaces from the H5, Admin, API, and Mobile templates
 
 ### Packages
 
@@ -71,25 +71,25 @@ pnpm create:project
 Or provide all options for CI/scripts:
 
 ```bash
-pnpm create:project -- --template web --name customer-portal
+pnpm create:project -- --template h5 --name campaign-share
 pnpm create:project -- --template admin --name operations-admin --port 3010
 pnpm create:project -- --template api --name billing-api --dry-run
 pnpm create:project -- --list
 ```
 
-Supported templates are `web`, `admin`, `api`, and `mobile`. The CLI creates the project under the matching `apps/*` category, rejects existing paths/workspace names, excludes local environments and build outputs, and does not install dependencies automatically. Run `pnpm install` after reviewing generated files.
+Supported templates are `h5`, `admin`, `api`, and `mobile`. The CLI creates the project under the matching `apps/*` category, rejects existing paths/workspace names, excludes local environments and build outputs, and does not install dependencies automatically. Run `pnpm install` after reviewing generated files.
 
 ### 3. Start development
 
 ```bash
 pnpm dev                        # All apps
-pnpm --filter web dev           # Web only
+pnpm --filter h5 dev            # H5 only
 pnpm --filter admin dev         # Admin dashboard only
 pnpm --filter mobile start      # Mobile only (Expo)
 pnpm --filter api dev           # API only
 ```
 
-- Web: <http://localhost:3000>
+- H5: <http://localhost:3000>
 - Admin: <http://localhost:3002>
 - API: <http://localhost:3001>
 - API docs: <http://localhost:3001/api/docs>
@@ -104,8 +104,8 @@ monorepo-template/
 │   ├── mobiles/
 │   │   └── mobile/         # Expo + React Native
 │   ├── webs/
-│   │   ├── admin/          # B2B admin dashboard template
-│   │   └── web/            # Next.js 16 + React 19
+│   │   ├── admin/          # B-side admin dashboard template
+│   │   └── h5/             # C-side mobile Web and share-page template
 │   └── tools/
 │       └── create-project/ # Template project creation CLI
 ├── packages/

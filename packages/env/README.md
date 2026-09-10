@@ -10,13 +10,13 @@ Each env object is **lazily validated on first property access** — only the sc
 
 ## Available Exports
 
-| Export | Schema | Variables |
-|---|---|---|
-| `globalEnv` | `globalSchema` | `NODE_ENV` |
+| Export        | Schema           | Variables                                                         |
+| ------------- | ---------------- | ----------------------------------------------------------------- |
+| `globalEnv`   | `globalSchema`   | `NODE_ENV`                                                        |
 | `databaseEnv` | `databaseSchema` | `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD` |
-| `apiEnv` | `apiSchema` | `API_PORT`, `ALLOWED_ORIGINS` |
-| `webEnv` | `webSchema` | `WEB_PORT`, `NEXT_PUBLIC_API_URL` |
-| `mobileEnv` | `mobileSchema` | `EXPO_PUBLIC_API_URL` |
+| `apiEnv`      | `apiSchema`      | `API_PORT`, `ALLOWED_ORIGINS`                                     |
+| `h5Env`       | `h5Schema`       | `H5_PORT`, `NEXT_PUBLIC_API_URL`                                  |
+| `mobileEnv`   | `mobileSchema`   | `EXPO_PUBLIC_API_URL`                                             |
 
 ## Usage
 
@@ -24,8 +24,8 @@ Each env object is **lazily validated on first property access** — only the sc
 import { apiEnv, databaseEnv } from "@repo/env";
 
 // Validated on first access (lazy)
-console.log(apiEnv.API_PORT);       // number
-console.log(databaseEnv.DB_HOST);   // string
+console.log(apiEnv.API_PORT); // number
+console.log(databaseEnv.DB_HOST); // string
 ```
 
 To extend the schema with new variables, edit `src/env.schema.ts` and add fields to the appropriate Zod object.

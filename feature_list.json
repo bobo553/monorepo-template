@@ -197,14 +197,14 @@
                     "summary": "6 个功能、13 个 workspace、32 份 Agent 规则及 Markdown 内部路由校验通过。"
                 },
                 {
-                    "command": "pnpm --filter web --filter admin --filter @repo/design-system-web lint && typecheck && build",
+                    "command": "pnpm --filter h5 --filter admin --filter @repo/design-system-web lint && typecheck && build",
                     "status": "passed",
-                    "summary": "两个 PC Web 应用及共享 Web 设计系统的 lint、类型检查与生产构建全部通过。"
+                    "summary": "H5、Admin 及共享 Web 设计系统的 lint、类型检查与生产构建全部通过。"
                 },
                 {
-                    "command": "pnpm --filter web --filter admin test:unit",
+                    "command": "pnpm --filter h5 --filter admin test:unit",
                     "status": "passed",
-                    "summary": "Web 与 Admin 共 5 个单元测试全部通过。"
+                    "summary": "H5 与 Admin 共 5 个单元测试全部通过。"
                 },
                 {
                     "command": "official guidance link check",
@@ -216,16 +216,16 @@
         {
             "id": "MONOREPO-007",
             "name": "project-template-cli",
-            "description": "新增仓库内 CLI，根据现有 Web、Admin、API 与 Mobile 模板安全创建项目。",
+            "description": "新增仓库内 CLI，根据现有 H5、Admin、API 与 Mobile 模板安全创建项目。",
             "title": "新增模板项目创建 CLI",
             "scope": "新增 apps/tools/create-project workspace、根命令、模板复制与改写逻辑、测试、文档、Harness 和进度记录。",
             "dependencies": ["MONOREPO-001", "MONOREPO-004", "MONOREPO-006"],
             "status": "done",
             "acceptanceCriteria": [
-                "CLI 支持 web、admin、api 与 mobile 模板并提供交互和非交互用法",
+                "CLI 支持 h5、admin、api 与 mobile 模板并提供交互和非交互用法",
                 "生成项目进入正确 apps 分类并使用合法且不冲突的 workspace 名称",
                 "复制过程排除依赖、构建、缓存、覆盖率和真实环境文件且不覆盖已有目录",
-                "生成 package、README、progress、Web 端口与 Expo 标识按新项目改写",
+                "生成 package、README、progress、H5/Admin 端口与 Expo 标识按新项目改写",
                 "支持模板列表、帮助和 dry-run，并为成功与拒绝路径提供自动化测试",
                 "CLI workspace、Harness、锁文件及受影响仓库门禁通过"
             ],
@@ -236,9 +236,9 @@
                     "summary": "CLI lint、严格类型检查、13 个单元测试和 ESM 可执行文件构建全部通过。"
                 },
                 {
-                    "command": "pnpm create:project -- --template <web|admin|api|mobile> --name <smoke-name> --dry-run",
+                    "command": "pnpm create:project -- --template <h5|admin|api|mobile> --name <smoke-name> --dry-run",
                     "status": "passed",
-                    "summary": "四种真实模板均解析到正确 apps 分类，Web/Admin 自动选择可用端口且未写入文件。"
+                    "summary": "四种真实模板均解析到正确 apps 分类，H5/Admin 自动选择可用端口且未写入文件。"
                 },
                 {
                     "command": "unsafe project name rejection",
@@ -249,6 +249,44 @@
                     "command": "pnpm verify:quick && pnpm build",
                     "status": "passed",
                     "summary": "7 个功能、14 个 workspace、32 份规则的 Harness、lint、类型检查、31 个单元测试和全仓构建通过。"
+                }
+            ]
+        },
+        {
+            "id": "MONOREPO-008",
+            "name": "rename-web-template-to-h5",
+            "description": "将面向用户、分享和移动浏览器场景的通用 Web 模板明确命名为 H5。",
+            "title": "将通用 Web 模板重命名为 H5",
+            "scope": "将通用 Web 模板迁移并重命名为 apps/webs/h5，同步 workspace、环境变量、部署、脚手架、规则、文档和状态。",
+            "dependencies": ["MONOREPO-001", "MONOREPO-004", "MONOREPO-007"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "apps/webs 保持扁平 workspace 布局，Admin 继续位于 apps/webs/admin",
+                "面向用户的移动 Web 模板位于 apps/webs/h5，workspace 名称为 h5",
+                "CLI 使用 h5 模板 ID，生成项目仍进入 apps/webs",
+                "pnpm、环境变量、Docker、脚手架、Harness 和文档不再引用旧 Web 名称",
+                "Harness、lint、类型检查、单元测试和生产构建通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm install",
+                    "status": "passed",
+                    "summary": "pnpm 识别 14 个 workspace，锁文件 importer 已从旧 Web 路径切换到 apps/webs/h5。"
+                },
+                {
+                    "command": "pnpm --filter h5 --filter admin --filter @repo/create-project --filter @repo/env lint; pnpm --filter h5 --filter admin --filter @repo/create-project --filter @repo/env typecheck; pnpm --filter h5 --filter admin --filter @repo/create-project test:unit; pnpm --filter h5 --filter admin --filter @repo/create-project --filter @repo/env build",
+                    "status": "passed",
+                    "summary": "H5、Admin、CLI 与环境包的 lint、严格类型检查、18 个相关单元测试和生产构建通过。"
+                },
+                {
+                    "command": "pnpm create:project -- --template <h5|admin> --name <smoke-name> --dry-run",
+                    "status": "passed",
+                    "summary": "H5 与 Admin 模板分别解析到 apps/webs/smoke-h5 和 apps/webs/smoke-admin，未写入文件。"
+                },
+                {
+                    "command": "pnpm verify",
+                    "status": "passed",
+                    "summary": "8 个功能、14 个 workspace、32 份规则的 Harness、lint、类型检查、31 个单元测试及全仓生产构建通过。"
                 }
             ]
         }

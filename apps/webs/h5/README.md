@@ -1,6 +1,6 @@
-# Web
+# H5
 
-This is the Next.js app in the monorepo.
+This is the mobile-first Next.js H5 app for consumer-facing pages, campaigns and share links.
 
 ## What is inside?
 
@@ -16,7 +16,7 @@ Install dependencies at the monorepo root and run the dev server:
 
 ```bash
 pnpm install
-pnpm --filter web dev
+pnpm --filter h5 dev
 ```
 
 Open <http://localhost:3000> in your browser.
@@ -24,23 +24,23 @@ Open <http://localhost:3000> in your browser.
 ## Available Commands
 
 ```bash
-pnpm --filter web dev                 # Start in development mode (Turbopack)
-pnpm --filter web build               # Build for production
-pnpm --filter web start               # Start built app
-pnpm --filter web typecheck           # Type-check TypeScript files
-pnpm --filter web lint                # Check lint and formatting
-pnpm --filter web lint:fix            # Fix lint and formatting
-pnpm --filter web test:unit           # Run unit tests
-pnpm --filter web test:unit:coverage  # Run unit tests with coverage
-pnpm --filter web test:e2e            # Run Playwright end-to-end tests
-pnpm --filter web test:e2e:ui         # Run Playwright tests with interactive UI
-pnpm --filter web test:all            # Run all tests
+pnpm --filter h5 dev                 # Start in development mode (Turbopack)
+pnpm --filter h5 build               # Build for production
+pnpm --filter h5 start               # Start built app
+pnpm --filter h5 typecheck           # Type-check TypeScript files
+pnpm --filter h5 lint                # Check lint and formatting
+pnpm --filter h5 lint:fix            # Fix lint and formatting
+pnpm --filter h5 test:unit           # Run unit tests
+pnpm --filter h5 test:unit:coverage  # Run unit tests with coverage
+pnpm --filter h5 test:e2e            # Run Playwright end-to-end tests
+pnpm --filter h5 test:e2e:ui         # Run Playwright tests with interactive UI
+pnpm --filter h5 test:all            # Run all tests
 ```
 
 ## Structure
 
 ```text
-apps/webs/web/
+apps/webs/h5/
 ├─ public/
 ├─ src/
 │  ├─ @types/                         # Global TypeScript declarations (.d.ts)
@@ -86,7 +86,7 @@ core/
 
 ## Design System Convention
 
-> **UI primitives always come from `@repo/design-system`.**
+> **UI primitives always come from `@repo/design-system-web`.**
 
 The design system is the single source of truth for base components (Button, Input, Badge, etc.) shared across all web apps.
 
@@ -98,7 +98,7 @@ import { EquipmentCard } from "@/shared/components/operation";
 import { Button, Input } from "@repo/design-system-web/components";
 ```
 
-**When to add to `@repo/design-system`:** The component is a primitive with no business logic, is used in more than one app.
+**When to add to `@repo/design-system-web`:** The component is a primitive with no business logic and is used in more than one browser app.
 
 **When to keep in `shared/components/`:** The component uses app-specific APIs, contains domain logic, or is only used in one app.
 

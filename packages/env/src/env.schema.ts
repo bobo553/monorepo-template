@@ -44,12 +44,12 @@ export const apiSchema = z.object({
         .describe("Comma-separated list of allowed CORS origins"),
 });
 
-export const webSchema = z.object({
-    WEB_PORT: z.coerce
+export const h5Schema = z.object({
+    H5_PORT: z.coerce
         .number({
-            error: "You forgot to set the WEB_PORT variable",
+            error: "You forgot to set the H5_PORT variable",
         })
-        .describe("Port for the web application"),
+        .describe("Port for the H5 application"),
     NEXT_PUBLIC_API_URL: z
         .string({
             error: "You forgot to set the NEXT_PUBLIC_API_URL variable",

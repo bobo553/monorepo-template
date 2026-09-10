@@ -14,9 +14,9 @@ Usage:
   pnpm create:project -- --template <template> --name <name> [--port <port>] [--dry-run]
 
 Options:
-  -t, --template <id>  web | admin | api | mobile
+  -t, --template <id>  h5 | admin | api | mobile
   -n, --name <name>    kebab-case workspace name
-  -p, --port <port>    Web/Admin port; automatically selected when omitted
+  -p, --port <port>    H5/Admin port; automatically selected when omitted
       --dry-run        Validate and print the plan without writing files
   -l, --list           List available templates
   -h, --help           Show this help

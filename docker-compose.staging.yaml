@@ -44,14 +44,14 @@ services:
             retries: 3
             start_period: 30s
 
-    web:
-        container_name: web_staging
+    h5:
+        container_name: h5_staging
         build:
             context: .
-            dockerfile: apps/webs/web/Dockerfile
+            dockerfile: apps/webs/h5/Dockerfile
         restart: always
         ports:
-            - "${WEB_PORT}:3000"
+            - "${H5_PORT}:3000"
         env_file:
             - .env.staging
         depends_on:

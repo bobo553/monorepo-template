@@ -4,7 +4,7 @@ import * as dotenv from "dotenv";
 import { findUpSync } from "find-up";
 import z from "zod";
 
-import { apiSchema, databaseSchema, globalSchema, mobileSchema, webSchema } from "./env.schema";
+import { apiSchema, databaseSchema, globalSchema, h5Schema, mobileSchema } from "./env.schema";
 
 const loadEnvFile = (): void => {
     const environment = process.env.NODE_ENV || "development";
@@ -56,5 +56,5 @@ const createLazy = <T extends object>(factory: () => T): T => {
 export const globalEnv = createLazy(() => validateEnv(globalSchema, "global"));
 export const databaseEnv = createLazy(() => validateEnv(databaseSchema, "database"));
 export const apiEnv = createLazy(() => validateEnv(apiSchema, "api"));
-export const webEnv = createLazy(() => validateEnv(webSchema, "web"));
+export const h5Env = createLazy(() => validateEnv(h5Schema, "h5"));
 export const mobileEnv = createLazy(() => validateEnv(mobileSchema, "mobile"));

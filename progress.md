@@ -13,8 +13,8 @@
 - 应用已按 `apps/servers/*`、`apps/mobiles/*`、`apps/webs/*`、`apps/tools/*` 分类。
 - 仓库级规则、按领域规则、功能状态、会话交接及验证入口均已建立。
 - Python 通用、测试与打包规则已纳入根路由和 Harness，可按任务渐进加载。
-- PC Web 规则已覆盖官网、门户、业务应用、数据工作台与 Admin，Admin 作为专项场景追加约束。
-- 模板项目创建 CLI 已支持 Web、Admin、API 和 Mobile 四类 workspace。
+- Web 规则区分移动优先 H5 与 PC 管理后台，Admin 作为桌面专项场景追加约束。
+- 模板项目创建 CLI 已支持 H5、Admin、API 和 Mobile 四类 workspace。
 - 详细进度由各 pnpm workspace 根目录的 `progress.md` 维护。
 
 ## What Completed
@@ -30,6 +30,7 @@
 - 完成 MONOREPO-005：新增 Python 通用、pytest 测试与 PyPA 打包规则，覆盖环境依赖、类型、异常、日志、并发、安全、CLI 和发布门禁。
 - 完成 MONOREPO-006：将偏 Admin 的规则优化为 PC Web 通用规范，并新增 Admin 数据表、权限、批处理和危险操作专项约束。
 - 完成 MONOREPO-007：新增 `@repo/create-project` CLI，提供交互/参数化创建、模板列表、dry-run、安全复制、端口分配和模板字段改写。
+- 完成 MONOREPO-008：将通用 Web 模板重命名为 `apps/webs/h5`，统一 workspace、环境变量、Docker、脚手架和文档命名，同时保留扁平 Web 目录。
 
 ## Verification Evidence
 
@@ -45,10 +46,11 @@
 - MONOREPO-005 的 `pnpm verify:quick`：Harness、lint、类型检查及 18 个单元测试全部通过。
 - Python 官方参考链接检查：Python、PyPA、Ruff、mypy 与 pytest 的 11 个链接均可访问。
 - Python 规则加入后 Harness 通用结构审计仍为 100/100。
-- MONOREPO-006 的 Web 消费者验证：`web`、`admin` 与 `@repo/design-system-web` 的 lint、类型检查和生产构建通过，Web/Admin 共 5 个单元测试通过。
+- MONOREPO-006 的 Web 消费者验证：`h5`、`admin` 与 `@repo/design-system-web` 的 lint、类型检查和生产构建通过，H5/Admin 共 5 个单元测试通过。
 - PC Web 规则加入后 Harness 通过，覆盖 6 个功能、13 个 workspace 和 32 份规则。
 - MONOREPO-007 的 CLI 门禁：lint、类型检查、13 个单元测试和构建通过；四种真实模板 dry-run 与非法路径拒绝通过。
 - 新增 CLI 后 `pnpm verify:quick` 与全仓构建通过，Harness 覆盖 7 个功能、14 个 workspace 和 32 份规则，全仓共 31 个单元测试。
+- MONOREPO-008 的 H5/Admin 模板 dry-run 均解析到 `apps/webs/*` 正确目标；相关 workspace 门禁和 `pnpm verify` 通过，Harness 覆盖 8 个功能。
 
 ## Blockers
 
@@ -56,4 +58,4 @@
 
 ## Recommended Next Step
 
-使用 `pnpm create:project` 创建新 workspace，审查生成 diff、替换示例业务与标识后再运行目标 workspace 门禁。
+使用 `pnpm create:project -- --template h5 --name <project-name>` 创建新的 H5 workspace，审查生成 diff、替换示例业务与标识后再运行目标 workspace 门禁。

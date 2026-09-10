@@ -10,7 +10,7 @@ Expo (React Native) app powered by NativeWind for styling.
 
 ## Tailwind Version
 
-This app uses **Tailwind CSS v3** via NativeWind, while `apps/webs/web` uses **Tailwind CSS v4**.
+This app uses **Tailwind CSS v3** via NativeWind, while `apps/webs/h5` uses **Tailwind CSS v4**.
 
 This is intentional: NativeWind does not yet support Tailwind v4. The split is expected and both apps share the same design token values — the mobile palette is defined in `packages/design-system/shared/theme.ts` and consumed by `tailwind.config.js` here, while the web mirrors those values as CSS variables in `packages/design-system/web/globals.css`.
 

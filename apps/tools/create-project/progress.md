@@ -2,7 +2,7 @@
 
 ## Current State
 
-MONOREPO-007 已完成，项目创建 CLI 可基于 Web、Admin、API 和 Mobile 模板生成新 workspace。
+MONOREPO-007 已完成，项目创建 CLI 可基于 H5、Admin、API 和 Mobile 模板生成新 workspace。
 
 ## Completed
 
@@ -16,6 +16,7 @@ MONOREPO-007 已完成，项目创建 CLI 可基于 Web、Admin、API 和 Mobile
 - CLI lint、严格类型检查、13 个单元测试和 tsup 构建通过。
 - 四种真实模板的根命令 dry-run 与非法路径拒绝验证通过。
 - `pnpm verify:quick` 和全仓 `pnpm build` 通过。
+- 模板 ID 从 `web` 调整为 `h5` 后，13 个 CLI 单元测试、H5/Admin dry-run 和生产构建通过。
 
 ## Risks and Next Steps
 

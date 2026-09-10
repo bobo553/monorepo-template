@@ -1,4 +1,4 @@
-export const templateIds = ["web", "admin", "api", "mobile"] as const;
+export const templateIds = ["h5", "admin", "api", "mobile"] as const;
 
 export type TTemplateId = (typeof templateIds)[number];
 

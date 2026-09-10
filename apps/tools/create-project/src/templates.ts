@@ -2,10 +2,10 @@ import type { ITemplateDefinition, TTemplateId } from "./types.js";
 import { templateIds } from "./types.js";
 
 export const templateDefinitions: Readonly<Record<TTemplateId, ITemplateDefinition>> = {
-    web: {
-        id: "web",
-        label: "PC Web",
-        sourceDirectory: "apps/webs/web",
+    h5: {
+        id: "h5",
+        label: "Consumer H5",
+        sourceDirectory: "apps/webs/h5",
         targetDirectory: "apps/webs",
         kind: "web",
         startScript: "dev",

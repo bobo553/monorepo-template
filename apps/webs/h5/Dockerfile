@@ -7,11 +7,11 @@ WORKDIR /app
 
 COPY pnpm-workspace.yaml pnpm-lock.yaml package.json turbo.json tsconfig.json ./
 COPY packages ./packages
-COPY apps/webs/web ./apps/webs/web
+COPY apps/webs/h5 ./apps/webs/h5
 
 RUN pnpm install --frozen-lockfile
 
-RUN pnpm turbo build --filter="web..."
+RUN pnpm turbo build --filter="h5..."
 
 # Production stage
 FROM node:22-alpine AS runner
@@ -38,4 +38,4 @@ EXPOSE 3000
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
     CMD wget -qO- http://localhost:3000 || exit 1
 
-CMD ["pnpm", "--filter", "web", "start"]
+CMD ["pnpm", "--filter", "h5", "start"]

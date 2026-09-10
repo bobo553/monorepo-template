@@ -1,7 +1,7 @@
 {
-    "name": "web",
+    "name": "h5",
     "version": "1.0.0",
-    "description": "Next.js 16 web app — part of the fullstack monorepo template",
+    "description": "Next.js 16 mobile-first H5 app — part of the fullstack monorepo template",
     "author": "Arthur Lobo",
     "type": "module",
     "private": true,

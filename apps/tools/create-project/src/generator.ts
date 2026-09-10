@@ -133,7 +133,7 @@ const chooseWebPort = (usedPorts: ReadonlySet<number>) => {
     for (let port = 3000; port <= maximumPort; port += 1) {
         if (!usedPorts.has(port)) return port;
     }
-    throw new Error("没有可用的 Web 端口");
+    throw new Error("没有可用的 H5/Admin 端口");
 };
 
 export const findRepositoryRoot = async (startDirectory = process.cwd()) => {
@@ -176,7 +176,7 @@ export const createProjectPlan = async (options: ICreateProjectOptions): Promise
     if (template.kind === "web") {
         const usedPorts = await readUsedWebPorts(repositoryRoot);
         port = normalizePort(options.port) ?? chooseWebPort(usedPorts);
-        if (usedPorts.has(port)) throw new Error(`Web 端口已被其他 workspace 使用：${port}`);
+        if (usedPorts.has(port)) throw new Error(`H5/Admin 端口已被其他 workspace 使用：${port}`);
     } else if (options.port !== undefined) {
         throw new Error(`模板 ${template.id} 不支持 --port`);
     }

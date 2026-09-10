@@ -15,14 +15,14 @@
 | -------------------------- | -------------------------------------------- | ------------------------- |
 | `apps/servers/*`           | 当前为 NestJS、TypeScript、PostgreSQL        | API、任务和后台进程       |
 | `apps/mobiles/*`           | Expo、React Native、NativeWind               | 移动端应用                |
-| `apps/webs/*`              | Next.js、React、Tailwind CSS                 | PC Web（含 Admin）        |
+| `apps/webs/*`              | Next.js、React、Tailwind CSS                 | B 端后台与 C 端 H5        |
 | `apps/tools/*`             | 按工具选择，默认 TypeScript                  | 浏览器扩展、CLI、桌面工具 |
 | `packages/contracts`       | Zod、TypeScript                              | 跨端数据契约              |
 | `packages/design-system/*` | shadcn/ui、NativeWind                        | Web 与移动端设计系统      |
 | `packages/env`             | Zod、dotenv                                  | 环境变量加载与校验        |
 | `packages/config/*`        | ESLint、Vitest、Playwright、TypeScript、tsup | 共享工具配置              |
 
-目录职责按顺序判断：无界面的运行单元进入 `servers`；移动端进入 `mobiles`；Web 页面进入 `webs`；可独立发布的开发者工具进入 `tools`；只有稳定跨应用复用的能力进入 `packages`。不得恢复 `apps/<workspace>` 的扁平布局。
+目录职责按顺序判断：无界面的运行单元进入 `servers`；原生移动端进入 `mobiles`；管理后台与浏览器 H5 页面进入 `webs`；可独立发布的开发者工具进入 `tools`；只有稳定跨应用复用的能力进入 `packages`。不得恢复 `apps/<workspace>` 的扁平布局。
 
 Python 服务、Worker、CLI 和库也按上述职责落位，不单独创建技术栈顶级目录；每个独立 Python 项目以自己的 `pyproject.toml` 定义边界。
 
@@ -44,7 +44,7 @@ Python 服务、Worker、CLI 和库也按上述职责落位，不单独创建技
 - 调试、测试设计、评审、重构、技术文档或依赖变更：额外读取 `docs/agent/general/quality-rules.md`。
 - `apps/servers/*`：读取 `apps/servers/AGENTS.md`、`docs/agent/backend/rules.md` 和 `docs/agent/backend/nestjs-rules.md`，再按任务加载 API、数据、可靠性或安全专项。
 - `apps/mobiles/*`：读取 `apps/mobiles/AGENTS.md` 和 `docs/agent/frontend/rules.md`。
-- `apps/webs/*`：读取 `apps/webs/AGENTS.md`、`docs/agent/frontend/rules.md` 和 `docs/agent/frontend/pc-web-rules.md`。
+- `apps/webs/*`：读取 `apps/webs/AGENTS.md` 和 `docs/agent/frontend/rules.md`；管理后台、桌面门户与数据工作台再读 `docs/agent/frontend/pc-web-rules.md`。
 - `apps/tools/*`：读取 `apps/tools/AGENTS.md`；有 UI 时再读前端规范。
 - Python 源码、`pyproject.toml`、Ruff、类型检查或 Python 运行时任务：读取 `docs/agent/python/rules.md`，测试或打包任务再按其路由加载专项规则。
 - Web 设计系统：额外读取 `packages/design-system/web/AGENTS.md`。

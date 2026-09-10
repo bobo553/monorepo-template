@@ -68,7 +68,7 @@ docs/agent/
 1. 所有代码任务先读取 `general/rules.md` 中与任务匹配的章节；调试、测试策略、评审、重构、文档或依赖任务再读取质量专项规则。
 2. 再读取一个主领域的 `rules.md`，按其“读取路由”选择最多必要的专项文件；只有任务跨领域时才组合多个入口。
 3. 后端任务先按 `backend/rules.md` 的表格选择 NestJS、架构、API、数据、可靠性或安全专项文件；任意服务端实现加载 NestJS 专项，后端架构专项再按需要路由到通用系统设计、分布式或运维规则。
-4. `apps/webs/*` 与其他 PC Web 页面任务加载 `frontend/pc-web-rules.md`；Admin 只追加其中的管理后台约束，不使用另一套设计系统。
+4. `apps/webs/*` 先加载前端通用规则；Admin、桌面门户和数据工作台再加载 `frontend/pc-web-rules.md`，H5 不因位于 Web 目录自动套用 PC 布局规则。
 5. Python 任务先读 `python/rules.md`；涉及 pytest 或打包发布时，再分别加载测试或打包专项，不因使用 Python 自动加载后端规则。
 6. 目录最近的 `AGENTS.md` 可以增加项目事实与专项门禁，但不能放宽根规则。
 7. 历史记录中的路径不作为路由依据，以根 `AGENTS.md` 和本索引的当前路径为准。
