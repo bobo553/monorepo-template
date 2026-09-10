@@ -6,9 +6,9 @@
 
 ### Apps
 
-- **`web`**: Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Vitest + Playwright
-- **`mobile`**: Expo + React Native + TypeScript + NativeWind + Vitest
-- **`api`**: NestJS 11 + TypeScript + TypeORM + PostgreSQL + Zod + Vitest + Supertest
+- **`apps/webs/web`**: Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Vitest + Playwright
+- **`apps/mobiles/mobile`**: Expo + React Native + TypeScript + NativeWind + Vitest
+- **`apps/servers/api`**: NestJS 11 + TypeScript + TypeORM + PostgreSQL + Zod + Vitest + Supertest
 
 ### Packages
 
@@ -76,9 +76,13 @@ pnpm --filter api dev           # API only
 ```text
 fullstack-monorepo-template/
 ├── apps/
-│   ├── web/                # Next.js 16 + React 19
-│   ├── mobile/             # Expo + React Native
-│   └── api/                # NestJS 11
+│   ├── servers/
+│   │   └── api/            # NestJS 11
+│   ├── mobiles/
+│   │   └── mobile/         # Expo + React Native
+│   ├── webs/
+│   │   └── web/            # Next.js 16 + React 19
+│   └── tools/              # Browser extensions, CLIs, desktop tools
 ├── packages/
 │   ├── contracts/          # Shared Zod schemas and TypeScript types
 │   ├── design-system/
@@ -97,6 +101,10 @@ fullstack-monorepo-template/
 │   ├── workflows/ci.yml    # CI pipeline
 │   └── dependabot.yml      # Automated dependency updates
 ├── .husky/                 # Git hooks (pre-commit, commit-msg)
+├── docs/agent/             # Progressive agent engineering rules
+├── scripts/harness/        # Agent-state validation
+├── AGENTS.md               # Authoritative agent entry point
+├── feature_list.json       # Feature status and verification evidence
 ├── .nvmrc                  # Node.js version pin (24.16.0)
 ├── docker-compose.*.yaml
 ├── package.json
@@ -160,6 +168,16 @@ pnpm docker:production  # Start production services
 pnpm commit             # Interactive commit with Commitizen
 ```
 
+### Agent workflow
+
+`AGENTS.md` is the single entry point for coding-agent instructions. Detailed rules are loaded on demand from `docs/agent/`, while `feature_list.json`, workspace-level `progress.md` files, and `session-handoff.md` preserve state between sessions.
+
+```bash
+pnpm harness:check      # Validate feature state and workspace progress files
+pnpm verify:quick       # Harness, lint, typecheck, and unit tests
+pnpm verify             # Quick verification plus the full build
+```
+
 ### Changesets
 
 Changesets track breaking changes and new features in packages, then automate `CHANGELOG.md` and version bumps.
@@ -173,9 +191,9 @@ pnpm changeset:status   # List packages with unpublished changes
 
 ## Git Hooks
 
-| Hook | Trigger | Action |
-|---|---|---|
-| `pre-commit` | Every `git commit` | Runs `pnpm format` across the workspace |
+| Hook         | Trigger            | Action                                                        |
+| ------------ | ------------------ | ------------------------------------------------------------- |
+| `pre-commit` | Every `git commit` | Runs `pnpm format` across the workspace                       |
 | `commit-msg` | Every `git commit` | Validates message against Conventional Commits via commitlint |
 
 ## Environment Variables

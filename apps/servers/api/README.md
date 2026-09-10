@@ -73,7 +73,7 @@ pnpm --filter=api migrate:down
 ## Structure
 
 ```text
-apps/api/
+apps/servers/api/
 ├── src/
 │   ├── main.ts                        # Bootstrap (Swagger, CORS, shutdown hooks)
 │   ├── app.module.ts                  # Root module

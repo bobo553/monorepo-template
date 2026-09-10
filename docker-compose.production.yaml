@@ -26,7 +26,7 @@ services:
         container_name: api_production
         build:
             context: .
-            dockerfile: apps/api/Dockerfile
+            dockerfile: apps/servers/api/Dockerfile
         restart: always
         ports:
             - "${API_PORT}:3001"
@@ -48,7 +48,7 @@ services:
         container_name: web_production
         build:
             context: .
-            dockerfile: apps/web/Dockerfile
+            dockerfile: apps/webs/web/Dockerfile
         restart: always
         ports:
             - "${WEB_PORT}:3000"

@@ -7,7 +7,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/arthurlbo/fullstack-monorepo-template.git"
+        "url": "git@github.com:bobo553/fullstack-monorepo-template.git"
     },
     "scripts": {
         "commit": "cz",
@@ -18,6 +18,9 @@
         "prepare": "husky",
         "build": "turbo run build",
         "build:packages": "pnpm --filter \"./packages/**\" build",
+        "harness:check": "node scripts/harness/validate-state.mjs",
+        "verify:quick": "pnpm harness:check && pnpm lint && pnpm typecheck && pnpm test:unit",
+        "verify": "pnpm verify:quick && pnpm build",
         "dev": "pnpm env::dev turbo run dev",
         "start:dev": "pnpm env::dev turbo run start",
         "start:staging": "pnpm env::staging turbo run start",
@@ -62,7 +65,10 @@
         "typescript": "6.0.3"
     },
     "lint-staged": {
-        "**/*.{ts,tsx,js,jsx}": ["eslint --fix", "prettier --write"],
+        "**/*.{ts,tsx,js,jsx}": [
+            "eslint --fix",
+            "prettier --write"
+        ],
         "**/*.{json,md,css,yaml}": "prettier --write"
     },
     "packageManager": "pnpm@10.26.2",

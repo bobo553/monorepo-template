@@ -1,0 +1,39 @@
+{
+    "$schema": "./feature-list.schema.json",
+    "schemaVersion": 1,
+    "activeFeature": null,
+    "features": [
+        {
+            "id": "MONOREPO-001",
+            "name": "workspace-structure-and-rules",
+            "description": "按声明式 workspace 布局迁移应用，并建立可验证、可恢复的仓库协作规范。",
+            "title": "重构 workspace 目录并建立工程规范",
+            "scope": "按 pnpm-workspace.yaml 迁移现有应用，同步路径、规则、状态与验证入口。",
+            "dependencies": [],
+            "status": "done",
+            "acceptanceCriteria": [
+                "应用位于 servers、mobiles、webs、tools 分类目录中",
+                "所有配置、Docker、文档与锁文件使用新路径",
+                "AGENTS.md 和按领域加载的工程规范可用",
+                "Harness、lint、类型检查、测试与构建通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm install",
+                    "status": "passed",
+                    "summary": "依赖安装成功，锁文件已按 12 个 workspace 和现有补丁重新生成。"
+                },
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "功能状态、依赖关系及 12 个 workspace 的进度文件校验通过。"
+                },
+                {
+                    "command": "pnpm verify",
+                    "status": "passed",
+                    "summary": "lint、TypeScript、单元测试和生产构建全部通过。"
+                }
+            ]
+        }
+    ]
+}

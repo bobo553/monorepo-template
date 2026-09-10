@@ -11,6 +11,7 @@ node_modules
 .env.development
 .env.staging
 .env.production
+.env.local
 
 # Testing
 coverage
@@ -36,7 +37,14 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+*.key
+*.p12
+*.pfx
 
 .idea
 .claude
 .expo
+
+# Expo Continuous Native Generation output
+apps/mobiles/mobile/android/
+apps/mobiles/mobile/ios/

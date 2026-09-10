@@ -3,7 +3,7 @@ const { withNativeWind } = require("nativewind/metro");
 const path = require("path");
 
 const projectRoot = __dirname;
-const workspaceRoot = path.resolve(projectRoot, "../..");
+const workspaceRoot = path.resolve(projectRoot, "../../..");
 
 const config = getDefaultConfig(projectRoot);
 
@@ -15,7 +15,7 @@ config.resolver.nodeModulesPaths = [
 ];
 
 // Force single instance of react-native-css-interop across the monorepo.
-// pnpm installs it both as a direct dep (apps/mobile) and transiently (via nativewind),
+// pnpm installs it both as a direct dependency and transitively through NativeWind.
 // which creates two instances and breaks CSS Interop's singleton state.
 config.resolver.extraNodeModules = {
     "react-native-css-interop": path.dirname(

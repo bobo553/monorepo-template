@@ -40,7 +40,7 @@ pnpm --filter web test:all            # Run all tests
 ## Structure
 
 ```text
-apps/web/
+apps/webs/web/
 ├─ public/
 ├─ src/
 │  ├─ @types/                         # Global TypeScript declarations (.d.ts)

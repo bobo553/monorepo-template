@@ -43,7 +43,7 @@
     "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
     "overrides": [
         {
-            "files": ["apps/mobile/**/*", "packages/design-system/mobile/**/*"],
+            "files": ["apps/mobiles/**/*", "packages/design-system/mobile/**/*"],
             "options": {
                 "importOrder": [
                     "^\\..*\\.css$",

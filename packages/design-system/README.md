@@ -15,16 +15,16 @@ packages/design-system/
 
 ## `@repo/design-system-web`
 
-Built with **Tailwind CSS v4** and **shadcn/ui**. Consumed only by `apps/web`.
+Built with **Tailwind CSS v4** and **shadcn/ui**. Consumed by workspaces under `apps/webs/`.
 
 ### Exports
 
-| Path | Contents |
-|---|---|
-| `@repo/design-system-web/components` | React components (Button, etc.) |
-| `@repo/design-system-web/utils` | `cn` utility |
-| `@repo/design-system-web/globals.css` | Tailwind base + design tokens (CSS variables) |
-| `@repo/design-system-web/postcss.config` | PostCSS config for Tailwind v4 |
+| Path                                     | Contents                                      |
+| ---------------------------------------- | --------------------------------------------- |
+| `@repo/design-system-web/components`     | React components (Button, etc.)               |
+| `@repo/design-system-web/utils`          | `cn` utility                                  |
+| `@repo/design-system-web/globals.css`    | Tailwind base + design tokens (CSS variables) |
+| `@repo/design-system-web/postcss.config` | PostCSS config for Tailwind v4                |
 
 ### `"use client"` pragma
 
@@ -47,6 +47,7 @@ import { cn } from "@repo/design-system-web/utils";
 ```js
 // postcss.config.mjs
 import config from "@repo/design-system-web/postcss.config";
+
 export default config;
 ```
 
@@ -60,24 +61,24 @@ pnpm --filter @repo/design-system-web build
 
 ## `@repo/design-system-mobile`
 
-Built with **NativeWind** + **React Native**. Consumed only by `apps/mobile`.
+Built with **NativeWind** + **React Native**. Consumed by workspaces under `apps/mobiles/`.
 
 Components (`/components`, `/utils`) are exported as TypeScript source — Metro bundler handles transpilation. The theme (`/theme`) is pre-built to CJS/ESM so `tailwind.config.js` can `require()` it.
 
 ### Exports
 
-| Path | Contents |
-|---|---|
+| Path                                    | Contents                                |
+| --------------------------------------- | --------------------------------------- |
 | `@repo/design-system-mobile/components` | React Native components (Button, Input) |
-| `@repo/design-system-mobile/utils` | `cn` utility for NativeWind |
-| `@repo/design-system-mobile/theme` | Tailwind theme object (built CJS + ESM) |
+| `@repo/design-system-mobile/utils`      | `cn` utility for NativeWind             |
+| `@repo/design-system-mobile/theme`      | Tailwind theme object (built CJS + ESM) |
 
 ### Usage
 
 ```ts
 import { Button, Input } from "@repo/design-system-mobile/components";
-import { cn } from "@repo/design-system-mobile/utils";
 import { theme } from "@repo/design-system-mobile/theme";
+import { cn } from "@repo/design-system-mobile/utils";
 ```
 
 ```js
@@ -110,9 +111,9 @@ The web package mirrors the same color values via CSS variables in `globals.css`
 
 ### Color scale
 
-| Token | Usage |
-|---|---|
-| `background` / `foreground` | Page and text base colors |
-| `primary-100` → `primary-700` | Text hierarchy and neutral fills |
-| `accent-100` → `accent-700` | Brand color — buttons, links, focus rings |
-| `surface-100` → `surface-700` | Card backgrounds, borders, inputs |
+| Token                         | Usage                                     |
+| ----------------------------- | ----------------------------------------- |
+| `background` / `foreground`   | Page and text base colors                 |
+| `primary-100` → `primary-700` | Text hierarchy and neutral fills          |
+| `accent-100` → `accent-700`   | Brand color — buttons, links, focus rings |
+| `surface-100` → `surface-700` | Card backgrounds, borders, inputs         |
