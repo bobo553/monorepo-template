@@ -1,7 +1,7 @@
 {
     "$schema": "./feature-list.schema.json",
     "schemaVersion": 1,
-    "activeFeature": "MONOREPO-003",
+    "activeFeature": null,
     "features": [
         {
             "id": "MONOREPO-001",
@@ -74,14 +74,30 @@
             "title": "迁移 GitHub 远端仓库",
             "scope": "更新仓库元数据和应用内 GitHub 链接，保留旧远端为 upstream，并推送 main 到新 origin。",
             "dependencies": ["MONOREPO-002"],
-            "status": "in-progress",
+            "status": "done",
             "acceptanceCriteria": [
                 "package 和页面中的仓库链接指向 bobo553/monorepo-template",
                 "旧仓库保留为 upstream，新仓库配置为 origin",
                 "验证通过后提交并推送 main",
                 "本地 HEAD 与新 origin/main 一致"
             ],
-            "verification": []
+            "verification": [
+                {
+                    "command": "repository reference scan",
+                    "status": "passed",
+                    "summary": "仓库元数据、Web、Mobile 和测试中的旧 GitHub 地址已全部清除。"
+                },
+                {
+                    "command": "pnpm verify",
+                    "status": "passed",
+                    "summary": "仓库名称与链接变更后，Harness、lint、类型检查、单元测试及生产构建全部通过。"
+                },
+                {
+                    "command": "git push -u origin main",
+                    "status": "passed",
+                    "summary": "main 已成功创建并推送到 git@github.com:bobo553/monorepo-template.git。"
+                }
+            ]
         }
     ]
 }
