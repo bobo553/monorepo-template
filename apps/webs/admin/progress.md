@@ -2,13 +2,14 @@
 
 ## Current State
 
-- MONOREPO-004 已完成，Admin 可作为独立的 B 端项目模板运行和构建。
+- MONOREPO-004 已完成，Admin 可作为 PC Web 中管理后台场景的独立模板运行和构建。
 
 ## Completed
 
 - 建立独立 Next.js workspace 配置。
 - 完成共享 UI 原语、响应式应用壳、主题切换和业务导航。
 - 完成经营指标、ECharts 图表、最近订单和标准资源空状态。
+- 接入 PC Web 通用页面规范，并保留高密度数据、权限、批处理与危险操作专项约束。
 
 ## Verification
 
@@ -16,6 +17,7 @@
 - Admin lint、类型检查、单元测试与生产构建通过。
 - Chromium E2E 通过：桌面概览、业务导航和移动端侧栏共 3 条流程。
 - `pnpm verify` 通过：全仓库 lint、类型检查、单元测试与生产构建成功。
+- PC Web 规则优化后，Admin lint、类型检查、单元测试和生产构建通过。
 
 ## Risks and Next Steps
 

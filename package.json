@@ -18,6 +18,7 @@
         "prepare": "husky",
         "build": "turbo run build",
         "build:packages": "pnpm --filter \"./packages/**\" build",
+        "create:project": "pnpm --filter @repo/create-project run create",
         "harness:check": "node scripts/harness/validate-state.mjs",
         "verify:quick": "pnpm harness:check && pnpm lint && pnpm typecheck && pnpm test:unit",
         "verify": "pnpm verify:quick && pnpm build",

@@ -31,7 +31,7 @@
 
 ### 依赖与导入
 
-- 内部包统一使用 `workspace:*`，包管理器统一使用 pnpm。
+- JavaScript/TypeScript 内部包统一使用 `workspace:*`，包管理器统一使用 pnpm；Python 依赖与环境规则见 `docs/agent/python/rules.md`。
 - 新增依赖前搜索仓库已有能力；运行时依赖和开发依赖放入正确区域。
 - Barrel 文件只用于稳定公共 API。Web React 组件入口遵守 `docs/agent/frontend/rules.md`；其他单文件模块不机械创建 Barrel。
 - 跨功能导入只能经过该功能的公开入口，避免依赖内部目录。
@@ -58,7 +58,7 @@
 ### 设计系统
 
 - Web 原语来自 `@repo/design-system-web`，Mobile 原语来自 `@repo/design-system-mobile`。
-- Web B 端使用的 shadcn/ui 原语必须在 `packages/design-system/web` 内生成、封装和维护，各应用只通过 `@repo/design-system-web` 使用，禁止在应用内保留另一份 `components/ui`；具体组件约束见 `docs/agent/frontend/rules.md`。
+- PC Web（包括官网、门户、业务应用和 Admin）使用的 shadcn/ui 原语必须在 `packages/design-system/web` 内生成、封装和维护，各应用只通过 `@repo/design-system-web` 使用，禁止在应用内保留另一份 `components/ui`；具体页面与组件约束见 `docs/agent/frontend/pc-web-rules.md` 和 `docs/agent/frontend/rules.md`。
 - 无业务逻辑且被多个页面/功能复用的组件放入设计系统；含导航、接口或领域逻辑的组合组件留在应用 `shared/components` 或功能目录。
 - Mobile 主题事实来源是 `packages/design-system/mobile/src/theme.ts`；Web CSS 变量与移动端语义 Token 需要保持一致，但不要求实现形式相同。
 - 图标使用项目既有图标库。SVG 图标的大小和颜色通过组件属性传入，避免假设 NativeWind 类能作用于所有图标实现。
@@ -78,12 +78,13 @@
 | ---------------- | --------------------------------------- | ------------------------ |
 | `apps/servers/*` | 服务端、API、任务和后台进程             | `apps/servers/AGENTS.md` |
 | `apps/mobiles/*` | C 端、移动端项目与页面                  | `apps/mobiles/AGENTS.md` |
-| `apps/webs/*`    | PC 端、B 端项目与页面                   | `apps/webs/AGENTS.md`    |
+| `apps/webs/*`    | PC Web、门户、业务应用与 Admin          | `apps/webs/AGENTS.md`    |
 | `apps/tools/*`   | 浏览器扩展、CLI、桌面辅助工具等独立应用 | `apps/tools/AGENTS.md`   |
 
 - 根目录 `AGENTS.md` 决定全局安全、范围、状态和验证门禁；应用级规则只能增加约束。
 - 新建运行应用时先按职责选择一级目录，再使用 `apps/<类型>/<workspace>` 结构；不得恢复 `apps/<workspace>` 扁平布局。
 - 同一功能跨多个应用时，以 `@repo/contracts` 固化接口，分别遵守各目录规则并验证生产者和消费者。
+- Python 项目仍按职责进入 `servers`、`tools` 或 `packages`，并额外加载 `docs/agent/python/rules.md`；不要按语言另建顶级目录。
 
 ## 质量、测试与版本管理
 

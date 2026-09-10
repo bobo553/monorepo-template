@@ -2,7 +2,7 @@
 
 本文件适用于 `packages/design-system/web`，继承根规则和 `docs/agent/frontend/rules.md`。
 
-- 本包是 Web UI 原语、设计令牌和通用交互能力的唯一事实来源，不依赖任何 `apps/*` workspace。
+- 本包是全部 PC Web（包括官网、门户、业务应用和 Admin）UI 原语、设计令牌和通用交互能力的唯一事实来源，不依赖任何 `apps/*` workspace。
 - shadcn/ui 组件只在本包生成、升级、封装和导出；应用不得复制一套 `components/ui`。
 - 含接口、权限、路由、埋点或领域流程的组合组件留在对应应用。
 - 目录和文件使用 kebab-case，组件符号使用 PascalCase；`index.ts` 只导出稳定公共 API。
@@ -17,4 +17,7 @@ pnpm --filter @repo/design-system-web build
 pnpm --filter web typecheck
 pnpm --filter web test:unit
 pnpm --filter web build
+pnpm --filter admin typecheck
+pnpm --filter admin test:unit
+pnpm --filter admin build
 ```

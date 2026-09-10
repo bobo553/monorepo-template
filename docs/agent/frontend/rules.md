@@ -4,17 +4,18 @@
 
 ## 读取路由
 
-| 任务类型                                | 额外读取章节                         |
-| --------------------------------------- | ------------------------------------ |
-| 任意前端代码                            | “基础规范”                           |
-| 路由、导航、URL 参数、SSR/SSG           | “路由、导航与 URL 状态”              |
-| 多语言、日期金额格式、RTL               | “国际化与内容适配”                   |
-| Polling、SSE、WebSocket                 | “实时通信与后台活动”                 |
-| 首屏、动画、图片、Canvas、包体积        | “性能、图形与构建产物”               |
-| 异步视图、低频弹框、弹框排队或预加载    | “异步视图与弹框体验”                 |
-| B/C 端 Web React 或使用 React 的扩展 UI | “Web React 组件规范（B/C 端）”       |
-| 埋点、曝光、分析或 A/B 实验             | `docs/agent/data-warehouse/rules.md` |
-| AI 输入、流式输出、引用或生成内容       | `docs/agent/ai/rules.md`             |
+| 任务类型                              | 额外读取章节                          |
+| ------------------------------------- | ------------------------------------- |
+| 任意前端代码                          | “基础规范”                            |
+| 路由、导航、URL 参数、SSR/SSG         | “路由、导航与 URL 状态”               |
+| 多语言、日期金额格式、RTL             | “国际化与内容适配”                    |
+| Polling、SSE、WebSocket               | “实时通信与后台活动”                  |
+| 首屏、动画、图片、Canvas、包体积      | “性能、图形与构建产物”                |
+| 异步视图、低频弹框、弹框排队或预加载  | “异步视图与弹框体验”                  |
+| PC Web 页面（包括官网、门户和 Admin） | `docs/agent/frontend/pc-web-rules.md` |
+| Web React 或使用 React 的扩展 UI      | “Web React 组件规范”                  |
+| 埋点、曝光、分析或 A/B 实验           | `docs/agent/data-warehouse/rules.md`  |
+| AI 输入、流式输出、引用或生成内容     | `docs/agent/ai/rules.md`              |
 
 专项章节只在任务涉及对应能力时读取。发生冲突时，根 `AGENTS.md`、目标目录最近的 `AGENTS.md` 和本文件中更严格的规则优先。
 
@@ -110,9 +111,9 @@
 - 用 Next.js 生产构建和包分析验证重型模块未进入不需要它的首屏 Chunk；预算来自真实产物，不依赖某个未安装的专用插件。
 - 真实浏览器验证首次/预加载打开时延、Console、Network、焦点回归、键盘、Escape、遮罩、窄屏和重复触发。
 
-## Web React 组件规范（B/C 端）
+## Web React 组件规范
 
-本节适用于 B/C 端 Web React 与使用 React 的浏览器扩展 UI。React Native 不引入 shadcn/ui。新组件立即执行；实质修改旧组件时同步迁移本次触及部分。
+本节适用于 PC Web、移动 H5 与使用 React 的浏览器扩展 UI。React Native 不引入 shadcn/ui。新组件立即执行；实质修改旧组件时同步迁移本次触及部分。
 
 ### 文件规模与拆分
 
@@ -141,6 +142,6 @@
 ### 中文注释与 shadcn/ui
 
 - 每个导出组件使用简体中文 TSDoc 说明职责、范围和边界；复杂状态、副作用、兼容性、性能和业务约束解释“为什么”，不逐行翻译代码。
-- Web B 端 shadcn/ui 原语只在 `packages/design-system/web` 生成、升级和维护，应用不得复制 `components/ui`。
+- PC Web 使用的 shadcn/ui 原语只在 `packages/design-system/web` 生成、升级和维护，应用不得复制 `components/ui`；Admin 特有的业务组合组件仍留在 Admin 应用。
 - 保持 shadcn/ui 的组合 API、可访问性、`className` 扩展、CVA 变体和 `cn` 合并风格，不用业务特例破坏原语。
 - 新增或升级原语后更新组件汇总入口、包导出和必要测试，并验证受影响的 Web 消费者。

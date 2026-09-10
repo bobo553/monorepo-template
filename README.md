@@ -10,6 +10,7 @@
 - **`apps/webs/admin`**: B2B admin dashboard with responsive navigation, ECharts, dark mode, Vitest, and Playwright
 - **`apps/mobiles/mobile`**: Expo + React Native + TypeScript + NativeWind + Vitest
 - **`apps/servers/api`**: NestJS 11 + TypeScript + TypeORM + PostgreSQL + Zod + Vitest + Supertest
+- **`apps/tools/create-project`**: Interactive CLI for creating workspaces from the Web, Admin, API, and Mobile templates
 
 ### Packages
 
@@ -59,6 +60,25 @@ Packages ship compiled output (`dist/`). Build them once before starting the dev
 pnpm build:packages
 ```
 
+### Create a project from a template
+
+Run the interactive wizard:
+
+```bash
+pnpm create:project
+```
+
+Or provide all options for CI/scripts:
+
+```bash
+pnpm create:project -- --template web --name customer-portal
+pnpm create:project -- --template admin --name operations-admin --port 3010
+pnpm create:project -- --template api --name billing-api --dry-run
+pnpm create:project -- --list
+```
+
+Supported templates are `web`, `admin`, `api`, and `mobile`. The CLI creates the project under the matching `apps/*` category, rejects existing paths/workspace names, excludes local environments and build outputs, and does not install dependencies automatically. Run `pnpm install` after reviewing generated files.
+
 ### 3. Start development
 
 ```bash
@@ -86,7 +106,8 @@ monorepo-template/
 │   ├── webs/
 │   │   ├── admin/          # B2B admin dashboard template
 │   │   └── web/            # Next.js 16 + React 19
-│   └── tools/              # Browser extensions, CLIs, desktop tools
+│   └── tools/
+│       └── create-project/ # Template project creation CLI
 ├── packages/
 │   ├── contracts/          # Shared Zod schemas and TypeScript types
 │   ├── design-system/
@@ -128,6 +149,7 @@ pnpm lint               # Lint all workspaces
 pnpm lint:fix           # Fix lint across all workspaces
 pnpm format             # Fix lint and formatting across all workspaces
 pnpm typecheck          # Type-check all workspaces
+pnpm create:project     # Create a workspace from an existing template
 ```
 
 ### Start (production build)

@@ -136,6 +136,121 @@
                     "summary": "锁文件重新生成，React 19.1、React DOM 类型与 ESLint 10 依赖图不再产生 peer dependency 冲突。"
                 }
             ]
+        },
+        {
+            "id": "MONOREPO-005",
+            "name": "python-engineering-rules",
+            "description": "新增基于 Python、PyPA、Ruff、mypy 与 pytest 官方最佳实践的 Python 工程规范。",
+            "title": "新增 Python 工程规范",
+            "scope": "新增 Python 通用、测试与打包规则，更新根路由、规则索引、Harness 和仓库进度。",
+            "dependencies": ["MONOREPO-002"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "Python 任务可从根 AGENTS.md 路由到独立规则域",
+                "规则覆盖环境依赖、代码结构、类型、异常、日志、并发、安全与质量门禁",
+                "pytest 测试和 PyPA 打包规则可按任务渐进加载",
+                "规则使用稳定官方建议且不绑定易过时的固定工具版本",
+                "Markdown 格式、链接、Harness 状态与通用 Harness 结构审计通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "5 个功能、13 个 workspace、31 份 Agent 规则及 Markdown 内部路由校验通过。"
+                },
+                {
+                    "command": "pnpm verify:quick",
+                    "status": "passed",
+                    "summary": "Harness、13 个 workspace 的 lint、类型检查及 18 个单元测试全部通过。"
+                },
+                {
+                    "command": "official documentation link check",
+                    "status": "passed",
+                    "summary": "Python、PyPA、Ruff、mypy 与 pytest 的 11 个官方参考链接均可访问。"
+                },
+                {
+                    "command": "harness-creator validate-harness",
+                    "status": "passed",
+                    "summary": "通用 Harness 结构审计保持 100/100。"
+                }
+            ]
+        },
+        {
+            "id": "MONOREPO-006",
+            "name": "pc-web-rules-generalization",
+            "description": "将偏 Admin 的 Web 模板规则扩展为适用于各类 PC Web 页面，并保留管理后台专项约束。",
+            "title": "优化 PC Web 与 Admin 模板规则",
+            "scope": "新增 PC Web 页面专项规范，更新 Web 目录、前端、设计系统、根路由、Harness 与仓库进度。",
+            "dependencies": ["MONOREPO-002", "MONOREPO-004"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "apps/webs 明确覆盖官网、内容、门户、业务应用与 Admin 等 PC Web 场景",
+                "通用 PC 页面布局和 Admin 高密度交互规则边界清晰",
+                "shadcn 与设计系统规则适用于全部 PC Web 消费者而非仅 B 端",
+                "Next.js Server/Client、数据并行、序列化和重型组件加载规则可执行",
+                "Web workspace 验证命令不再写死单一应用且 Harness 校验通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "6 个功能、13 个 workspace、32 份 Agent 规则及 Markdown 内部路由校验通过。"
+                },
+                {
+                    "command": "pnpm --filter web --filter admin --filter @repo/design-system-web lint && typecheck && build",
+                    "status": "passed",
+                    "summary": "两个 PC Web 应用及共享 Web 设计系统的 lint、类型检查与生产构建全部通过。"
+                },
+                {
+                    "command": "pnpm --filter web --filter admin test:unit",
+                    "status": "passed",
+                    "summary": "Web 与 Admin 共 5 个单元测试全部通过。"
+                },
+                {
+                    "command": "official guidance link check",
+                    "status": "passed",
+                    "summary": "Next.js、React、WCAG 2.2 与 WAI-ARIA Grid 的官方参考链接均可访问。"
+                }
+            ]
+        },
+        {
+            "id": "MONOREPO-007",
+            "name": "project-template-cli",
+            "description": "新增仓库内 CLI，根据现有 Web、Admin、API 与 Mobile 模板安全创建项目。",
+            "title": "新增模板项目创建 CLI",
+            "scope": "新增 apps/tools/create-project workspace、根命令、模板复制与改写逻辑、测试、文档、Harness 和进度记录。",
+            "dependencies": ["MONOREPO-001", "MONOREPO-004", "MONOREPO-006"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "CLI 支持 web、admin、api 与 mobile 模板并提供交互和非交互用法",
+                "生成项目进入正确 apps 分类并使用合法且不冲突的 workspace 名称",
+                "复制过程排除依赖、构建、缓存、覆盖率和真实环境文件且不覆盖已有目录",
+                "生成 package、README、progress、Web 端口与 Expo 标识按新项目改写",
+                "支持模板列表、帮助和 dry-run，并为成功与拒绝路径提供自动化测试",
+                "CLI workspace、Harness、锁文件及受影响仓库门禁通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm --filter @repo/create-project lint && typecheck && test:unit && build",
+                    "status": "passed",
+                    "summary": "CLI lint、严格类型检查、13 个单元测试和 ESM 可执行文件构建全部通过。"
+                },
+                {
+                    "command": "pnpm create:project -- --template <web|admin|api|mobile> --name <smoke-name> --dry-run",
+                    "status": "passed",
+                    "summary": "四种真实模板均解析到正确 apps 分类，Web/Admin 自动选择可用端口且未写入文件。"
+                },
+                {
+                    "command": "unsafe project name rejection",
+                    "status": "passed",
+                    "summary": "公开 CLI 对 ../unsafe 返回退出码 1，没有创建越界目录。"
+                },
+                {
+                    "command": "pnpm verify:quick && pnpm build",
+                    "status": "passed",
+                    "summary": "7 个功能、14 个 workspace、32 份规则的 Harness、lint、类型检查、31 个单元测试和全仓构建通过。"
+                }
+            ]
         }
     ]
 }

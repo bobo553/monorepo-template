@@ -12,6 +12,9 @@
 
 - 应用已按 `apps/servers/*`、`apps/mobiles/*`、`apps/webs/*`、`apps/tools/*` 分类。
 - 仓库级规则、按领域规则、功能状态、会话交接及验证入口均已建立。
+- Python 通用、测试与打包规则已纳入根路由和 Harness，可按任务渐进加载。
+- PC Web 规则已覆盖官网、门户、业务应用、数据工作台与 Admin，Admin 作为专项场景追加约束。
+- 模板项目创建 CLI 已支持 Web、Admin、API 和 Mobile 四类 workspace。
 - 详细进度由各 pnpm workspace 根目录的 `progress.md` 维护。
 
 ## What Completed
@@ -19,11 +22,14 @@
 - 完成 MONOREPO-001：目录重构与工程规范整理。
 - 同步 Docker、CI、文档、Metro、Tailwind、补丁与锁文件路径。
 - 完成 MONOREPO-002：迁移 architecture、algorithms、backend、frontend、data-warehouse、operations 与 ai 全部规则，并适配 NestJS/TypeScript 技术栈。
-- Harness 现会校验 28 份规则完整性和 Markdown 路由目标。
+- Harness 现会校验 32 份规则完整性和 Markdown 路由目标。
 - 完成 MONOREPO-003：仓库名称、项目链接和测试期望已切换到 `bobo553/monorepo-template`，且本地只保留该 `origin`。
 - 完成 MONOREPO-004：新增 `apps/webs/admin` B 端管理后台模板，包含响应式应用壳、主题、经营仪表盘、ECharts 图表、业务空状态和测试入口。
 - Web 设计系统新增 Badge、Card、Input、Separator 与 Skeleton 通用原语，Admin 未创建重复的 `components/ui`。
 - 收尾修复依赖与测试告警：React 规则兼容 ESLint 10，Vitest 使用 Vite 8 原生路径解析，移动端移除已弃用测试渲染器。
+- 完成 MONOREPO-005：新增 Python 通用、pytest 测试与 PyPA 打包规则，覆盖环境依赖、类型、异常、日志、并发、安全、CLI 和发布门禁。
+- 完成 MONOREPO-006：将偏 Admin 的规则优化为 PC Web 通用规范，并新增 Admin 数据表、权限、批处理和危险操作专项约束。
+- 完成 MONOREPO-007：新增 `@repo/create-project` CLI，提供交互/参数化创建、模板列表、dry-run、安全复制、端口分配和模板字段改写。
 
 ## Verification Evidence
 
@@ -36,6 +42,13 @@
 - MONOREPO-004 的 Chromium E2E：桌面概览、业务导航与移动端侧栏 3 条流程通过。
 - MONOREPO-004 的 `pnpm verify`：13 个 workspace 的 Harness、lint、类型检查、单元测试和生产构建全部通过。
 - `pnpm install`：依赖图无 peer dependency 冲突；全量单测不再出现 Vitest 配置和 React 测试渲染器告警。
+- MONOREPO-005 的 `pnpm verify:quick`：Harness、lint、类型检查及 18 个单元测试全部通过。
+- Python 官方参考链接检查：Python、PyPA、Ruff、mypy 与 pytest 的 11 个链接均可访问。
+- Python 规则加入后 Harness 通用结构审计仍为 100/100。
+- MONOREPO-006 的 Web 消费者验证：`web`、`admin` 与 `@repo/design-system-web` 的 lint、类型检查和生产构建通过，Web/Admin 共 5 个单元测试通过。
+- PC Web 规则加入后 Harness 通过，覆盖 6 个功能、13 个 workspace 和 32 份规则。
+- MONOREPO-007 的 CLI 门禁：lint、类型检查、13 个单元测试和构建通过；四种真实模板 dry-run 与非法路径拒绝通过。
+- 新增 CLI 后 `pnpm verify:quick` 与全仓构建通过，Harness 覆盖 7 个功能、14 个 workspace 和 32 份规则，全仓共 31 个单元测试。
 
 ## Blockers
 
@@ -43,4 +56,4 @@
 
 ## Recommended Next Step
 
-基于 `apps/webs/admin` 接入真实认证与业务 API，并通过 `@repo/contracts` 共享接口契约。
+使用 `pnpm create:project` 创建新 workspace，审查生成 diff、替换示例业务与标识后再运行目标 workspace 门禁。

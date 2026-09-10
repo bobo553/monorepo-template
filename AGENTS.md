@@ -6,7 +6,7 @@
 
 - 与用户沟通、规则、进度和交接使用简体中文；代码标识符、文件名、协议字段和第三方 API 保留英文。
 - 代码注释只解释职责、原因、边界和外部约束，不复述实现步骤。
-- 命令默认从仓库根目录执行。包管理器只使用 pnpm，不生成其他锁文件。
+- 命令默认从仓库根目录执行。JavaScript/TypeScript 包管理器只使用 pnpm，不生成 npm 或 Yarn 锁文件；Python 依赖按对应 `pyproject.toml` 声明和锁定。
 - Node.js 版本以 `.nvmrc` 为准，pnpm 版本以根 `package.json#packageManager` 为准。
 
 ## 项目速览
@@ -15,7 +15,7 @@
 | -------------------------- | -------------------------------------------- | ------------------------- |
 | `apps/servers/*`           | 当前为 NestJS、TypeScript、PostgreSQL        | API、任务和后台进程       |
 | `apps/mobiles/*`           | Expo、React Native、NativeWind               | 移动端应用                |
-| `apps/webs/*`              | Next.js、React、Tailwind CSS                 | Web 应用                  |
+| `apps/webs/*`              | Next.js、React、Tailwind CSS                 | PC Web（含 Admin）        |
 | `apps/tools/*`             | 按工具选择，默认 TypeScript                  | 浏览器扩展、CLI、桌面工具 |
 | `packages/contracts`       | Zod、TypeScript                              | 跨端数据契约              |
 | `packages/design-system/*` | shadcn/ui、NativeWind                        | Web 与移动端设计系统      |
@@ -24,13 +24,15 @@
 
 目录职责按顺序判断：无界面的运行单元进入 `servers`；移动端进入 `mobiles`；Web 页面进入 `webs`；可独立发布的开发者工具进入 `tools`；只有稳定跨应用复用的能力进入 `packages`。不得恢复 `apps/<workspace>` 的扁平布局。
 
+Python 服务、Worker、CLI 和库也按上述职责落位，不单独创建技术栈顶级目录；每个独立 Python 项目以自己的 `pyproject.toml` 定义边界。
+
 ## 启动流程（Startup Workflow）
 
 开始修改前按顺序执行：
 
 1. 确认仓库根目录并运行 `git status --short`；已有改动默认属于用户，不覆盖、不回退。
 2. 完整阅读本文件和根 `feature_list.json`；有未完成交接时再读 `session-handoff.md`。
-3. 使用 `pnpm -r list --depth -1 --json` 确认受影响 workspace，并读取各 workspace 根目录的 `progress.md`。
+3. 使用 `pnpm -r list --depth -1 --json` 确认受影响的 Node.js workspace；Python 任务再检索对应 `pyproject.toml`，并读取各 workspace 根目录的 `progress.md`。
 4. 在 `feature_list.json` 中只保留一个 `in-progress` 功能，确认其依赖与验收条件。
 5. 读取距离目标文件最近的 `AGENTS.md`，再按下方路由读取必要规范。
 6. 首次检出运行 `./init.ps1 -Mode quick`（Windows）或 `./init.sh --mode quick`（macOS/Linux）；日常任务至少运行相关 workspace 的基线检查。
@@ -42,8 +44,9 @@
 - 调试、测试设计、评审、重构、技术文档或依赖变更：额外读取 `docs/agent/general/quality-rules.md`。
 - `apps/servers/*`：读取 `apps/servers/AGENTS.md`、`docs/agent/backend/rules.md` 和 `docs/agent/backend/nestjs-rules.md`，再按任务加载 API、数据、可靠性或安全专项。
 - `apps/mobiles/*`：读取 `apps/mobiles/AGENTS.md` 和 `docs/agent/frontend/rules.md`。
-- `apps/webs/*`：读取 `apps/webs/AGENTS.md` 和 `docs/agent/frontend/rules.md`。
+- `apps/webs/*`：读取 `apps/webs/AGENTS.md`、`docs/agent/frontend/rules.md` 和 `docs/agent/frontend/pc-web-rules.md`。
 - `apps/tools/*`：读取 `apps/tools/AGENTS.md`；有 UI 时再读前端规范。
+- Python 源码、`pyproject.toml`、Ruff、类型检查或 Python 运行时任务：读取 `docs/agent/python/rules.md`，测试或打包任务再按其路由加载专项规则。
 - Web 设计系统：额外读取 `packages/design-system/web/AGENTS.md`。
 - 共享契约、环境变量或组件库：读取通用规范中的“共享包规则”。
 - 应用/服务拆分、技术选型、容量、一致性或高可用：读取 `docs/agent/architecture/rules.md`，再按其路由加载系统设计或分布式专项。
@@ -57,7 +60,7 @@
 ## 状态与范围（Stay in scope）
 
 - `feature_list.json` 是功能范围、依赖、状态、验收条件和验证证据的唯一事实来源。
-- 每个 pnpm workspace 在自身根目录维护 `progress.md`；只更新受当前任务影响的 workspace。
+- 每个独立 workspace 在自身根目录维护 `progress.md`；新增 Python 项目时同步扩展 Harness 的 workspace 发现逻辑，只更新受当前任务影响的 workspace。
 - `session-handoff.md` 只记录跨会话仍未完成的工作、阻塞、关键文件和下一步。
 - One feature at a time：同一时间只允许一个 `in-progress` 功能；不顺手处理无关问题。
 - 新增 workspace 时同步创建 `progress.md`；`pnpm harness:check` 必须能够发现它。
@@ -70,6 +73,7 @@
 - 通用 UI 原语优先复用设计系统；含接口、权限、路由或业务流程的组合组件留在应用内部。
 - Web 保持 Server/Client Component 边界；API 保持 `presentation → application → domain ← infrastructure` 依赖方向。
 - 新增依赖前确认现有能力不能满足需求，使用 `workspace:*` 引用内部包并同步锁文件。
+- Python 项目以 `pyproject.toml` 作为配置和打包事实来源，虚拟环境保持隔离，Ruff、类型检查和 pytest 门禁按 Python 规则执行。
 - 缺陷修复补充能够复现问题的测试；无法自动化时记录手工验证和剩余风险。
 
 ## 安全与变更边界
@@ -92,6 +96,18 @@ pnpm harness:check
 pnpm verify:quick
 pnpm verify
 ```
+
+Python workspace 使用项目已选定的环境/依赖执行器运行等价门禁；默认命令形态为：
+
+```bash
+ruff format --check .
+ruff check .
+mypy src tests
+pytest
+python -m build
+```
+
+具体路径和是否需要构建由 `pyproject.toml` 与任务类型决定，不能为了套用示例运行不存在的目标。
 
 只有在目标行为实现、相关格式/lint/类型/测试/构建实际通过、状态与进度文件更新、无法运行项及风险明确记录后，功能才能标记为 `done`。UI 改动还需真实浏览器或设备验证；API、数据库和基础设施改动需要相应集成验证。
 
