@@ -98,6 +98,44 @@
                     "summary": "main 已成功创建并推送到 git@github.com:bobo553/monorepo-template.git。"
                 }
             ]
+        },
+        {
+            "id": "MONOREPO-004",
+            "name": "admin-dashboard-template",
+            "description": "参考 next-shadcn-dashboard-starter 建立符合当前仓库规范的 B 端管理后台模板。",
+            "title": "新增 B 端管理后台模板",
+            "scope": "新增 apps/webs/admin，复用共享设计系统，提供响应式应用壳、仪表盘、图表、列表、状态页与验证入口。",
+            "dependencies": ["MONOREPO-001", "MONOREPO-002"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "管理后台作为独立 Next.js workspace 可运行和构建",
+                "响应式侧栏、顶部工具区、主题切换与主要导航可用",
+                "仪表盘包含指标、趋势图、渠道分布和最近订单，并覆盖加载、空、错误状态",
+                "共享 UI 原语位于 @repo/design-system-web，应用内无重复 components/ui",
+                "Harness、lint、类型检查、单元测试、E2E 与生产构建通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm --filter admin test:e2e",
+                    "status": "passed",
+                    "summary": "Chromium 中的桌面概览、业务导航和移动端侧栏 3 条端到端流程全部通过。"
+                },
+                {
+                    "command": "desktop visual inspection at 1440x1000",
+                    "status": "passed",
+                    "summary": "实际浏览器渲染中侧栏、指标卡、趋势图、渠道环图和订单表格布局正常。"
+                },
+                {
+                    "command": "pnpm verify",
+                    "status": "passed",
+                    "summary": "13 个 workspace 的 Harness、ESLint 10/React 19 规则、类型检查、无弃用运行时告警的单元测试与生产构建全部通过。"
+                },
+                {
+                    "command": "pnpm install",
+                    "status": "passed",
+                    "summary": "锁文件重新生成，React 19.1、React DOM 类型与 ESLint 10 依赖图不再产生 peer dependency 冲突。"
+                }
+            ]
         }
     ]
 }

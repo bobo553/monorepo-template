@@ -1,13 +1,15 @@
 import path from "node:path";
+
 import swc from "unplugin-swc";
-import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
 
 export const createNestConfig = (rootDir: string) =>
     defineConfig({
-        plugins: [tsconfigPaths(), swc.vite({ module: { type: "es6" } })],
+        oxc: false,
+        plugins: [swc.vite({ module: { type: "es6" } })],
         resolve: {
             alias: { "@": path.join(rootDir, "src") },
+            tsconfigPaths: true,
         },
         test: {
             globals: true,

@@ -7,6 +7,7 @@
 ### Apps
 
 - **`apps/webs/web`**: Next.js 16 + React 19 + TypeScript + Tailwind CSS v4 + Vitest + Playwright
+- **`apps/webs/admin`**: B2B admin dashboard with responsive navigation, ECharts, dark mode, Vitest, and Playwright
 - **`apps/mobiles/mobile`**: Expo + React Native + TypeScript + NativeWind + Vitest
 - **`apps/servers/api`**: NestJS 11 + TypeScript + TypeORM + PostgreSQL + Zod + Vitest + Supertest
 
@@ -63,11 +64,13 @@ pnpm build:packages
 ```bash
 pnpm dev                        # All apps
 pnpm --filter web dev           # Web only
+pnpm --filter admin dev         # Admin dashboard only
 pnpm --filter mobile start      # Mobile only (Expo)
 pnpm --filter api dev           # API only
 ```
 
 - Web: <http://localhost:3000>
+- Admin: <http://localhost:3002>
 - API: <http://localhost:3001>
 - API docs: <http://localhost:3001/api/docs>
 
@@ -81,6 +84,7 @@ monorepo-template/
 │   ├── mobiles/
 │   │   └── mobile/         # Expo + React Native
 │   ├── webs/
+│   │   ├── admin/          # B2B admin dashboard template
 │   │   └── web/            # Next.js 16 + React 19
 │   └── tools/              # Browser extensions, CLIs, desktop tools
 ├── packages/
