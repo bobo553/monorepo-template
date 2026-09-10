@@ -40,12 +40,19 @@
 
 - 任意代码实现：读取 `docs/agent/general/rules.md`。
 - 调试、测试设计、评审、重构、技术文档或依赖变更：额外读取 `docs/agent/general/quality-rules.md`。
-- `apps/servers/*`：读取 `apps/servers/AGENTS.md` 和 `docs/agent/backend/rules.md`。
+- `apps/servers/*`：读取 `apps/servers/AGENTS.md`、`docs/agent/backend/rules.md` 和 `docs/agent/backend/nestjs-rules.md`，再按任务加载 API、数据、可靠性或安全专项。
 - `apps/mobiles/*`：读取 `apps/mobiles/AGENTS.md` 和 `docs/agent/frontend/rules.md`。
 - `apps/webs/*`：读取 `apps/webs/AGENTS.md` 和 `docs/agent/frontend/rules.md`。
 - `apps/tools/*`：读取 `apps/tools/AGENTS.md`；有 UI 时再读前端规范。
 - Web 设计系统：额外读取 `packages/design-system/web/AGENTS.md`。
 - 共享契约、环境变量或组件库：读取通用规范中的“共享包规则”。
+- 应用/服务拆分、技术选型、容量、一致性或高可用：读取 `docs/agent/architecture/rules.md`，再按其路由加载系统设计或分布式专项。
+- 非平凡算法、复杂度、数值、排序、搜索或随机过程：读取 `docs/agent/algorithms/rules.md`。
+- 埋点、ETL/CDC、指标、治理、分析、可视化或实验：读取 `docs/agent/data-warehouse/rules.md`。
+- CI/CD、容器、IaC、可观测、事故、发布或灾备：读取 `docs/agent/operations/rules.md`。
+- 模型、Prompt、RAG、Agent 工具、微调、多模态或 AI 评测：读取 `docs/agent/ai/rules.md`。
+
+各领域入口只负责边界、不变量和专项路由；只加载当前任务命中的文件，不因“可能有用”读取整个 `docs/agent`。
 
 ## 状态与范围（Stay in scope）
 

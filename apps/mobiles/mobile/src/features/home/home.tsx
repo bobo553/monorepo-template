@@ -20,7 +20,7 @@ export const Home = (): JSX.Element => {
 
                 <View className="flex-row items-center gap-3">
                     <LinkButton
-                        href="https://github.com/arthurlbo/fullstack-monorepo-template"
+                        href="https://github.com/bobo553/monorepo-template"
                         label="Explore Docs"
                         icon={{ icon: IconBrandGithub }}
                         className="border border-surface-400 bg-transparent"

@@ -27,7 +27,7 @@ vi.mock("@repo/design-system-mobile/components", () => ({
 const mockIcon = { icon: () => null } as unknown as TIcon;
 
 const mockProps = {
-    href: "https://github.com/arthurlbo/fullstack-monorepo-template",
+    href: "https://github.com/bobo553/monorepo-template",
     label: "Explore Docs",
     icon: mockIcon,
 };

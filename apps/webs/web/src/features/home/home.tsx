@@ -14,7 +14,7 @@ export const Home = (): JSX.Element => {
 
             <div className="mt-2 flex items-center gap-2">
                 <LinkButton
-                    href="https://github.com/arthurlbo/fullstack-monorepo-template"
+                    href="https://github.com/bobo553/monorepo-template"
                     label="Explore Documentation"
                     icon={IconBrandGithub}
                     className="border-border text-primary-100 hover:bg-border border bg-transparent"

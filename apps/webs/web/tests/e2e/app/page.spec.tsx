@@ -19,7 +19,7 @@ test.describe("Home Page E2E", () => {
     test("should display GitHub documentation link with correct href", async ({ page }) => {
         const githubLink = page.getByRole("link", { name: /explore documentation/i });
         await expect(githubLink).toBeVisible();
-        await expect(githubLink).toHaveAttribute("href", "https://github.com/arthurlbo/fullstack-monorepo-template");
+        await expect(githubLink).toHaveAttribute("href", "https://github.com/bobo553/monorepo-template");
         await expect(githubLink).toHaveAttribute("target", "_blank");
     });
 

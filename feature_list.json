@@ -1,7 +1,7 @@
 {
     "$schema": "./feature-list.schema.json",
     "schemaVersion": 1,
-    "activeFeature": null,
+    "activeFeature": "MONOREPO-003",
     "features": [
         {
             "id": "MONOREPO-001",
@@ -34,6 +34,54 @@
                     "summary": "lint、TypeScript、单元测试和生产构建全部通过。"
                 }
             ]
+        },
+        {
+            "id": "MONOREPO-002",
+            "name": "complete-agent-rules-migration",
+            "description": "迁移 Astar 项目的完整 Agent 规则分类，并适配当前 TypeScript、NestJS、Next.js 与 Expo 技术栈。",
+            "title": "迁移完整 Agent 工程规范",
+            "scope": "覆盖 architecture、algorithms、backend、frontend、data-warehouse、operations 与 ai 规则，更新上下文路由并移除源项目专属约束。",
+            "dependencies": ["MONOREPO-001"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "源 docs/agent 的全部规则领域在当前项目均有对应文件",
+                "Go、游戏、微信支付及不存在包路径已适配或移除",
+                "根 AGENTS.md 与 docs/agent/README.md 路由完整且可渐进加载",
+                "文档格式、链接、Harness 与完整仓库验证通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "2 个功能、12 个 workspace、28 份 Agent 规则及其 Markdown 路由校验通过。"
+                },
+                {
+                    "command": "pnpm verify",
+                    "status": "passed",
+                    "summary": "lint、TypeScript、单元测试、NestJS 构建和 Next.js 构建全部通过。"
+                },
+                {
+                    "command": "harness-creator validate-harness",
+                    "status": "passed",
+                    "summary": "通用 Harness 结构审计保持 100/100。"
+                }
+            ]
+        },
+        {
+            "id": "MONOREPO-003",
+            "name": "publish-to-monorepo-template-repository",
+            "description": "切换项目仓库标识与链接，并将已验证代码推送到新的 GitHub 仓库。",
+            "title": "迁移 GitHub 远端仓库",
+            "scope": "更新仓库元数据和应用内 GitHub 链接，保留旧远端为 upstream，并推送 main 到新 origin。",
+            "dependencies": ["MONOREPO-002"],
+            "status": "in-progress",
+            "acceptanceCriteria": [
+                "package 和页面中的仓库链接指向 bobo553/monorepo-template",
+                "旧仓库保留为 upstream，新仓库配置为 origin",
+                "验证通过后提交并推送 main",
+                "本地 HEAD 与新 origin/main 一致"
+            ],
+            "verification": []
         }
     ]
 }

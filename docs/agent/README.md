@@ -1,19 +1,77 @@
 # 智能体规则目录
 
-根 `AGENTS.md` 是唯一全局入口。本目录按领域保存细则，智能体只加载当前任务需要的文件。
+本目录保存仓库的中文工程规范。根 `AGENTS.md` 是唯一全局入口；本文件只负责分类索引和上下文路由，不要求智能体一次读取全部规则。
 
-| 分类 | 入口                       | 触发场景                             |
-| ---- | -------------------------- | ------------------------------------ |
-| 通用 | `general/rules.md`         | 任意代码实现、共享包、目录与版本管理 |
-| 质量 | `general/quality-rules.md` | 调试、测试、评审、重构、文档与依赖   |
-| 前端 | `frontend/rules.md`        | Web、React Native、UI 与浏览器界面   |
-| 后端 | `backend/rules.md`         | NestJS、API、数据库与后台任务        |
+## 分类索引
 
-加载顺序：先读根规则，再读目标目录最近的 `AGENTS.md`，最后读一个主领域入口。任务确实跨领域时才组合多个入口。
+| 分类     | 入口                      | 触发场景                                                     |
+| -------- | ------------------------- | ------------------------------------------------------------ |
+| 通用     | `general/rules.md`        | 任意代码实现、调试、测试、评审、共享包、文档、依赖与版本管理 |
+| 前端     | `frontend/rules.md`       | Web、Mobile、移动 H5、React、UI 和浏览器扩展界面             |
+| 后端     | `backend/rules.md`        | NestJS、API、Worker、任务和服务端适配器                      |
+| 架构     | `architecture/rules.md`   | 系统设计、应用/服务拆分、分布式协作、容量、可用性和技术选型  |
+| 数据数仓 | `data-warehouse/rules.md` | 埋点、ETL/ELT、指标、治理、分析、可视化和实验                |
+| 算法     | `algorithms/rules.md`     | 复杂算法、数据结构、数值计算、搜索/排序、随机过程和性能优化  |
+| 运维     | `operations/rules.md`     | CI/CD、容器、IaC、IAM、网络、可观测、事故、发布和灾备        |
+| AI       | `ai/rules.md`             | 模型、Prompt、上下文、RAG、Agent、工具、微调、多模态和评测   |
 
-维护规则：
+## 目录结构
 
-- 规则使用简体中文，代码标识符和第三方名称保留英文。
-- 同一事实只保留一个权威来源；其他文件通过链接路由。
-- 根规则只保留启动、范围、不变量和完成门禁；实现细节进入最窄的领域文件。
-- 路径或验证命令变化时同步更新规则、README、Harness 和 CI。
+```text
+docs/agent/
+├── README.md
+├── general/
+│   ├── rules.md
+│   └── quality-rules.md
+├── frontend/
+│   └── rules.md
+├── backend/
+│   ├── rules.md
+│   ├── nestjs-rules.md
+│   ├── architecture-rules.md
+│   ├── api-rules.md
+│   ├── data-rules.md
+│   ├── reliability-rules.md
+│   └── security-rules.md
+├── architecture/
+│   ├── rules.md
+│   ├── system-design-rules.md
+│   └── distributed-systems-rules.md
+├── data-warehouse/
+│   ├── rules.md
+│   ├── tracking-rules.md
+│   ├── modeling-governance-rules.md
+│   └── analytics-experiment-rules.md
+├── algorithms/
+│   └── rules.md
+├── operations/
+│   ├── rules.md
+│   ├── delivery-rules.md
+│   ├── infrastructure-rules.md
+│   └── observability-incident-rules.md
+└── ai/
+    ├── rules.md
+    ├── prompt-context-rules.md
+    ├── rag-retrieval-rules.md
+    ├── agent-tool-rules.md
+    └── model-delivery-rules.md
+```
+
+## 加载规则
+
+1. 所有代码任务先读取 `general/rules.md` 中与任务匹配的章节；调试、测试策略、评审、重构、文档或依赖任务再读取质量专项规则。
+2. 再读取一个主领域的 `rules.md`，按其“读取路由”选择最多必要的专项文件；只有任务跨领域时才组合多个入口。
+3. 后端任务先按 `backend/rules.md` 的表格选择 NestJS、架构、API、数据、可靠性或安全专项文件；任意服务端实现加载 NestJS 专项，后端架构专项再按需要路由到通用系统设计、分布式或运维规则。
+4. 目录最近的 `AGENTS.md` 可以增加项目事实与专项门禁，但不能放宽根规则。
+5. 历史记录中的路径不作为路由依据，以根 `AGENTS.md` 和本索引的当前路径为准。
+
+不要因“可能有用”加载全部目录。架构、运维、数仓、算法和 AI 规则只在任务真正涉及相应决策或实现时读取。
+
+## 维护约定
+
+- 分类目录使用英文 kebab-case，分类入口统一命名为 `rules.md`，专项规则使用 `<topic>-rules.md`。
+- 规则内容使用简体中文，代码标识符、协议和第三方产品名保留英文。
+- 新规则先放入最窄且唯一的领域；跨领域规则保留一个事实来源，其他文件只建立引用。
+- 单个入口只保留领域边界、核心不变量和路由；触发条件独立的细则拆成专项文件，并同步本索引与根路由。
+- 外部知识只提炼稳定、可执行和可验证的约束；不复制教程、固定规模阈值、厂商排名、绝对性能数字或易过时版本参数。
+- 路径迁移必须全仓检索旧引用，更新 Harness 状态，并运行 Prettier、链接/结构检查和 `pnpm harness:check`。

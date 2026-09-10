@@ -74,7 +74,7 @@ pnpm --filter api dev           # API only
 ## Project Structure
 
 ```text
-fullstack-monorepo-template/
+monorepo-template/
 ├── apps/
 │   ├── servers/
 │   │   └── api/            # NestJS 11

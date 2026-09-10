@@ -1,6 +1,6 @@
 # 服务端目录规则
 
-本文件适用于 `apps/servers/*`，继承根 `AGENTS.md`。所有服务端任务同时读取 `docs/agent/backend/rules.md`。
+本文件适用于 `apps/servers/*`，继承根 `AGENTS.md`。所有服务端任务同时读取 `docs/agent/backend/rules.md` 和 `docs/agent/backend/nestjs-rules.md`，再按任务加载专项规则。
 
 ## 目录职责
 
