@@ -289,6 +289,91 @@
                     "summary": "8 个功能、14 个 workspace、32 份规则的 Harness、lint、类型检查、31 个单元测试及全仓生产构建通过。"
                 }
             ]
+        },
+        {
+            "id": "MONOREPO-009",
+            "name": "public-project-roadmap",
+            "description": "建立面向用户与贡献者的公开 Roadmap，并与机器可校验的 Feature 状态保持单一事实来源。",
+            "title": "新增公开项目 Roadmap",
+            "scope": "新增 ROADMAP.md，明确 Now、Next、Later 与 Delivered 边界，更新入口文档、智能体规则和 Harness 引用校验。",
+            "dependencies": ["MONOREPO-002", "MONOREPO-007", "MONOREPO-008"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "ROADMAP.md 面向公开读者说明项目方向、当前重点、候选方向和已交付基础",
+                "Roadmap 不重复维护 Feature 的精确状态、依赖、验收条件或验证证据",
+                "获准执行的 Roadmap 项必须引用 feature_list.json 中存在的 Feature ID",
+                "README、AGENTS.md 和会话交接清晰说明 Roadmap 与 Feature List 的职责边界",
+                "Harness 能校验 Roadmap 的必要结构和 Feature ID 引用，相关文档与仓库门禁通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm exec prettier --check ROADMAP.md README.md AGENTS.md progress.md session-handoff.md scripts/harness/validate-state.mjs feature_list.json",
+                    "status": "passed",
+                    "summary": "中文路线图、入口文档、状态文件和 Harness 校验脚本均符合仓库格式规范。"
+                },
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "9 个功能、14 个 workspace、32 份规则以及中文路线图必要章节和 Feature ID 引用校验通过。"
+                },
+                {
+                    "command": "pnpm verify:quick",
+                    "status": "passed",
+                    "summary": "Harness、全仓 lint、类型检查和 31 个单元测试全部通过。"
+                },
+                {
+                    "command": "harness-creator validate-harness",
+                    "status": "passed",
+                    "summary": "Instructions、State、Verification、Scope 与 Lifecycle 五个子系统均保持 5/5。"
+                }
+            ]
+        },
+        {
+            "id": "MONOREPO-010",
+            "name": "web-workspace-typescript-next-react-rule",
+            "description": "为 apps/webs 下的所有 Web 应用明确统一的 Next.js、React 和 TypeScript 技术栈及源码扩展名规则。",
+            "title": "统一 Web workspace 技术栈规则",
+            "scope": "更新 apps/webs/AGENTS.md，规定 .ts/.tsx 的适用边界并保留框架配置例外；同步受影响进度和本地 CodeGraph 索引忽略规则。",
+            "dependencies": ["MONOREPO-001", "MONOREPO-008"],
+            "status": "done",
+            "acceptanceCriteria": [
+                "apps/webs/* 明确统一使用 Next.js App Router、React 和 TypeScript",
+                "业务逻辑使用 .ts，含 JSX 的 React 组件使用 .tsx，src 与 tests 下不新增 .js/.jsx 源码",
+                "框架和工具链所需的 .mjs 配置保留例外，现有 h5 与 admin 符合规则",
+                "CodeGraph 本地索引不会进入 Git 变更，相关格式、Harness 和 workspace 基线检查通过"
+            ],
+            "verification": [
+                {
+                    "command": "pnpm exec prettier --check apps/webs/AGENTS.md apps/webs/h5/progress.md apps/webs/admin/progress.md feature_list.json progress.md",
+                    "status": "passed",
+                    "summary": "Web 规则和相关状态文件格式检查通过。"
+                },
+                {
+                    "command": "pnpm harness:check",
+                    "status": "passed",
+                    "summary": "10 个功能、14 个 workspace 和 32 份规则的 Harness 校验通过。"
+                },
+                {
+                    "command": "pnpm --filter h5 --filter admin lint",
+                    "status": "passed",
+                    "summary": "两个 Web workspace 的 ESLint 检查通过。"
+                },
+                {
+                    "command": "pnpm --filter h5 --filter admin typecheck",
+                    "status": "passed",
+                    "summary": "两个 Web workspace 的 TypeScript 类型检查通过。"
+                },
+                {
+                    "command": "pnpm --filter h5 --filter admin test:unit",
+                    "status": "passed",
+                    "summary": "H5 的 4 个和 Admin 的 1 个单元测试通过。"
+                },
+                {
+                    "command": "$legacySources = @(rg --files apps/webs/h5/src apps/webs/h5/tests apps/webs/admin/src apps/webs/admin/tests -g '*.js' -g '*.jsx'); if ($legacySources.Count -ne 0) { $legacySources; exit 1 }",
+                    "status": "passed",
+                    "summary": "两个 Web 应用的 src 和 tests 目录均没有 .js/.jsx 文件；框架 .mjs 配置保留。"
+                }
+            ]
         }
     ]
 }

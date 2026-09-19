@@ -31,7 +31,7 @@ Python 服务、Worker、CLI 和库也按上述职责落位，不单独创建技
 开始修改前按顺序执行：
 
 1. 确认仓库根目录并运行 `git status --short`；已有改动默认属于用户，不覆盖、不回退。
-2. 完整阅读本文件和根 `feature_list.json`；有未完成交接时再读 `session-handoff.md`。
+2. 完整阅读本文件和根 `feature_list.json`；规划或排期任务再读 `ROADMAP.md`，有未完成交接时再读 `session-handoff.md`。
 3. 使用 `pnpm -r list --depth -1 --json` 确认受影响的 Node.js workspace；Python 任务再检索对应 `pyproject.toml`，并读取各 workspace 根目录的 `progress.md`。
 4. 在 `feature_list.json` 中只保留一个 `in-progress` 功能，确认其依赖与验收条件。
 5. 读取距离目标文件最近的 `AGENTS.md`，再按下方路由读取必要规范。
@@ -60,6 +60,7 @@ Python 服务、Worker、CLI 和库也按上述职责落位，不单独创建技
 ## 状态与范围（Stay in scope）
 
 - `feature_list.json` 是功能范围、依赖、状态、验收条件和验证证据的唯一事实来源。
+- `ROADMAP.md` 只表达面向公众的 Now、Next、Later 与已交付方向；不得重复维护精确状态、依赖、验收条件或验证证据。获准执行的 Roadmap 项必须先在 `feature_list.json` 中取得 Feature ID。
 - 每个独立 workspace 在自身根目录维护 `progress.md`；新增 Python 项目时同步扩展 Harness 的 workspace 发现逻辑，只更新受当前任务影响的 workspace。
 - `session-handoff.md` 只记录跨会话仍未完成的工作、阻塞、关键文件和下一步。
 - One feature at a time：同一时间只允许一个 `in-progress` 功能；不顺手处理无关问题。

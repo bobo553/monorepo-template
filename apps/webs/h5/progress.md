@@ -10,12 +10,14 @@ Next.js 应用已重命名为 `apps/webs/h5`，workspace 名为 `h5`，面向用
 - 保留原有 Web 源码与测试。
 - 与 Admin 共用 Web 设计系统，但使用移动优先的信息架构和交互，不套用后台 App Shell。
 - 目录、workspace 名、Docker、脚手架和文档已从 `web` 同步重命名为 `h5`。
+- 继承 `apps/webs/AGENTS.md` 的 Next.js App Router、React、TypeScript 与 `.ts/.tsx` 源码规则。
 
 ## Verification
 
 - `pnpm verify`：通过 H5 lint、类型检查、单元测试和 Next.js 生产构建。
 - Web 规则优化后，H5 lint、类型检查、4 个单元测试和生产构建通过。
 - 重命名后 H5 与 Admin 的相关门禁、CLI dry-run 及全仓 `pnpm verify` 通过。
+- Web 技术栈规则明确后，`h5` 的 lint、类型检查和 4 个单元测试通过；`src` 与 `tests` 下没有 `.js/.jsx` 文件。
 
 ## Risks and Next Steps
 

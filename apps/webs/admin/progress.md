@@ -10,6 +10,7 @@
 - 完成共享 UI 原语、响应式应用壳、主题切换和业务导航。
 - 完成经营指标、ECharts 图表、最近订单和标准资源空状态。
 - 接入 PC Web 通用页面规范，并保留高密度数据、权限、批处理与危险操作专项约束。
+- 继承 `apps/webs/AGENTS.md` 的 Next.js App Router、React、TypeScript 与 `.ts/.tsx` 源码规则。
 
 ## Verification
 
@@ -18,6 +19,7 @@
 - Chromium E2E 通过：桌面概览、业务导航和移动端侧栏共 3 条流程。
 - `pnpm verify` 通过：全仓库 lint、类型检查、单元测试与生产构建成功。
 - PC Web 规则优化后，Admin lint、类型检查、单元测试和生产构建通过。
+- Web 技术栈规则明确后，`admin` 的 lint、类型检查和 1 个单元测试通过；`src` 与 `tests` 下没有 `.js/.jsx` 文件。
 
 ## Risks and Next Steps
 

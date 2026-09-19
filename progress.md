@@ -2,7 +2,7 @@
 
 ## Last Updated
 
-2026-09-10
+2026-09-19
 
 ## Current Objective
 
@@ -14,7 +14,9 @@
 - 仓库级规则、按领域规则、功能状态、会话交接及验证入口均已建立。
 - Python 通用、测试与打包规则已纳入根路由和 Harness，可按任务渐进加载。
 - Web 规则区分移动优先 H5 与 PC 管理后台，Admin 作为桌面专项场景追加约束。
+- `apps/webs/*` 统一使用 Next.js App Router、React、TypeScript，业务源码按 `.ts/.tsx` 分工。
 - 模板项目创建 CLI 已支持 H5、Admin、API 和 Mobile 四类 workspace。
+- 公开 Roadmap 使用 Now、Next、Later 与 Delivered 表达方向，精确执行状态继续由 `feature_list.json` 独占维护。
 - 详细进度由各 pnpm workspace 根目录的 `progress.md` 维护。
 
 ## What Completed
@@ -31,6 +33,8 @@
 - 完成 MONOREPO-006：将偏 Admin 的规则优化为 PC Web 通用规范，并新增 Admin 数据表、权限、批处理和危险操作专项约束。
 - 完成 MONOREPO-007：新增 `@repo/create-project` CLI，提供交互/参数化创建、模板列表、dry-run、安全复制、端口分配和模板字段改写。
 - 完成 MONOREPO-008：将通用 Web 模板重命名为 `apps/webs/h5`，统一 workspace、环境变量、Docker、脚手架和文档命名，同时保留扁平 Web 目录。
+- 完成 MONOREPO-009：新增中文公开 `ROADMAP.md`，使用现在、下一步、未来与已交付基础表达方向，并通过 Harness 校验必要章节和 Feature ID 引用。
+- 完成 MONOREPO-010：为所有 Web workspace 明确 Next.js、React、TypeScript 和 `.ts/.tsx` 规则，保留框架配置例外。
 
 ## Verification Evidence
 
@@ -51,6 +55,8 @@
 - MONOREPO-007 的 CLI 门禁：lint、类型检查、13 个单元测试和构建通过；四种真实模板 dry-run 与非法路径拒绝通过。
 - 新增 CLI 后 `pnpm verify:quick` 与全仓构建通过，Harness 覆盖 7 个功能、14 个 workspace 和 32 份规则，全仓共 31 个单元测试。
 - MONOREPO-008 的 H5/Admin 模板 dry-run 均解析到 `apps/webs/*` 正确目标；相关 workspace 门禁和 `pnpm verify` 通过，Harness 覆盖 8 个功能。
+- MONOREPO-009 中文化后的文档格式、`pnpm harness:check` 与 `pnpm verify:quick` 通过；Harness 通用结构审计五个子系统均保持 5/5。
+- MONOREPO-010 的格式、Harness、`h5`/`admin` lint、类型检查和 5 个单元测试通过；两应用 `src` 与 `tests` 下均无 `.js/.jsx` 文件。
 
 ## Blockers
 
@@ -58,4 +64,4 @@
 
 ## Recommended Next Step
 
-使用 `pnpm create:project -- --template h5 --name <project-name>` 创建新的 H5 workspace，审查生成 diff、替换示例业务与标识后再运行目标 workspace 门禁。
+从 `ROADMAP.md` 的 Next 候选中选择方向，完成讨论和范围定义后，在 `feature_list.json` 中创建下一个 backlog Feature。

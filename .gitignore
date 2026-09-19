@@ -20,6 +20,7 @@ playwright-report
 
 # Turbo
 .turbo
+.codegraph/
 
 # Vercel
 .vercel

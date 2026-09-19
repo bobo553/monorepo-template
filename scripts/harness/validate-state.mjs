@@ -45,6 +45,36 @@ for (const feature of features) {
     }
 }
 
+const roadmapPath = join(repositoryRoot, "ROADMAP.md");
+if (!existsSync(roadmapPath)) {
+    failures.push("缺少 ROADMAP.md");
+} else {
+    const roadmap = readFileSync(roadmapPath, "utf8");
+    const requiredRoadmapHeadings = [
+        "# 项目路线图",
+        "## 项目方向",
+        "## 如何阅读",
+        "## 现在（Now）",
+        "## 下一步（Next）",
+        "## 未来（Later）",
+        "## 已交付基础",
+        "## 贡献与推进流程",
+    ];
+
+    for (const heading of requiredRoadmapHeadings) {
+        if (!roadmap.includes(heading)) failures.push(`ROADMAP.md 缺少章节 ${heading}`);
+    }
+
+    if (!roadmap.includes("feature_list.json")) {
+        failures.push("ROADMAP.md 必须声明 feature_list.json 的执行事实来源边界");
+    }
+
+    const roadmapFeatureIds = new Set(roadmap.match(/\bMONOREPO-\d{3}\b/g) ?? []);
+    for (const featureId of roadmapFeatureIds) {
+        if (!featureIds.has(featureId)) failures.push(`ROADMAP.md 引用了不存在的 Feature ${featureId}`);
+    }
+}
+
 const workspacePackagePaths = [];
 const collectPackages = (directory, remainingDepth) => {
     if (!existsSync(directory) || remainingDepth < 0) return;

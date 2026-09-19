@@ -11,6 +11,8 @@
 
 ## 实现规则
 
+- `apps/webs/*` 中的 Web 应用统一使用 Next.js App Router、React 和 TypeScript；不得新增纯 JavaScript 业务源码或另起一套 Web 框架。
+- 不含 JSX 的业务逻辑、Hook、类型和工具代码使用 `.ts`，页面、布局、Provider 及其他含 JSX 的 React 组件使用 `.tsx`；`src/` 与 `tests/` 下不新增 `.js` 或 `.jsx` 文件。框架和工具链要求的 `.mjs` 配置文件不受此限制。
 - Next.js 默认使用 Server Component，只有明确的客户端能力需要时才添加 `"use client"`。
 - 业务按 `features/` 聚合，跨功能能力放 `shared/`，第三方初始化放 `lib/`，Provider 集中在 `providers/`。
 - Web UI 原语统一由 `@repo/design-system-web` 提供；含权限、导航、接口或业务流程的组合组件留在应用。

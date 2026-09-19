@@ -16,4 +16,4 @@
 
 ## Recommended Next Step（Next Session）
 
-从 `feature_list.json` 选择依赖已满足的 backlog 功能，并按 `AGENTS.md` 的启动流程开始。
+先从 `ROADMAP.md` 了解公开方向；确认实施范围后，在 `feature_list.json` 中创建或选择依赖已满足的 backlog 功能，并按 `AGENTS.md` 的启动流程开始。

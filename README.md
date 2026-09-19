@@ -2,6 +2,8 @@
 
 > A modern, production-ready monorepo template to kickstart your Full-stack development with Next.js, NestJS, Expo, and shared configuration packages.
 
+[项目路线图](./ROADMAP.md) · [智能体工作流](./AGENTS.md)
+
 ## What's inside?
 
 ### Apps
@@ -129,6 +131,7 @@ monorepo-template/
 ├── docs/agent/             # Progressive agent engineering rules
 ├── scripts/harness/        # Agent-state validation
 ├── AGENTS.md               # Authoritative agent entry point
+├── ROADMAP.md              # 公开的现在 / 下一步 / 未来方向
 ├── feature_list.json       # Feature status and verification evidence
 ├── .nvmrc                  # Node.js version pin (24.16.0)
 ├── docker-compose.*.yaml
@@ -196,7 +199,7 @@ pnpm commit             # Interactive commit with Commitizen
 
 ### Agent workflow
 
-`AGENTS.md` is the single entry point for coding-agent instructions. Detailed rules are loaded on demand from `docs/agent/`, while `feature_list.json`, workspace-level `progress.md` files, and `session-handoff.md` preserve state between sessions.
+`AGENTS.md` 是编码智能体规则的唯一入口，详细规范按需从 `docs/agent/` 加载。`ROADMAP.md` 用于公开说明项目方向，`feature_list.json` 则是执行范围、状态、验收条件和验证证据的唯一事实来源。各 workspace 的 `progress.md` 和根目录 `session-handoff.md` 用于保存跨会话的实施上下文。
 
 ```bash
 pnpm harness:check      # Validate feature state and workspace progress files
